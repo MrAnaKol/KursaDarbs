@@ -1,0 +1,57 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<p>Please insert new parcel!</p>
+
+	<form action="#" th:action="@{/parcel/add/__${id1}__-__${id2}__/__${id3}__}" th:object="${parcel}" th:method="post">
+		<table>
+			<tr>
+				<td>OrderCreated:</td>
+				<td> <input type="text" th:field="*{orderCreated}" /> </td>
+				<td th:if="${#fields.hasErrors('orderCreated')}" th:errors="*{orderCreated}" ></td>
+			</tr>
+			<tr>
+				<td>PlannedDelivery:</td>
+				<td> <input type="text" th:field="*{plannedDelivery}" /> </td>
+				<td th:if="${#fields.hasErrors('plannedDelivery')}" th:errors="*{plannedDelivery}" ></td>
+			</tr>
+			<tr>
+				<td>Size:</td>
+				<td> <input type="text" th:field="*{size}" /> </td>
+				<td th:if="${#fields.hasErrors('size')}" th:errors="*{size}" ></td>
+			</tr>
+			<tr>
+				<td>IsFragile:</td>
+				<td> <input type="text" th:field="*{isFragile}" /> </td>
+				<td th:if="${#fields.hasErrors('isFragile')}" th:errors="*{isFragile}" ></td>
+			</tr>
+			<tr>
+				<td>Price:</td>
+				<td> <input type="text" th:field="*{price}" /> </td>
+				<td th:if="${#fields.hasErrors('price')}" th:errors="*{price}" ></td>
+			</tr>
+			<tr>
+				<td>IdP:</td>
+				<td> <input type="text" th:name="parcelIdP" th:value = "${id3}"/></td>
+				<td th:if="${#fields.hasErrors('idP')}" th:errors="*{idP}" ></td>
+			</tr>
+			<tr>
+				<td>IdC1:</td>
+				<td> <input type="text" th:name="parcelIdC1" th:value = "${id1}"/></td>
+				<td th:if="${#fields.hasErrors('idC1')}" th:errors="*{idC1}" ></td>
+			</tr>
+			<tr>
+				<td>IdC2:</td>
+				<td> <input type="text" th:name="parcelIdC2" th:value = "${id2}"/></td>
+				<td th:if="${#fields.hasErrors('idC2')}" th:errors="*{idC2}" ></td>
+			</tr>
+			<tr>
+				<td> <input type="submit" name="Save"/></td>
+			</tr>
+		</table>
+	</form>
+
+</body>
+
+
+</html>

@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<p>Please insert new customer as person!</p>
+
+	<form action="#" th:action="@{/customer/create/person}" th:object="${person}" th:method="post">
+		<table>
+			<tr>
+				<td>Phone:</td>
+				<td> <input type="text" th:field="*{phone}" /> </td>
+				<td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" ></td>
+			</tr>
+			<tr>
+				<td>PersonCode:</td>
+				<td> <input type="text" th:field="*{personCode}" /> </td>
+				<td th:if="${#fields.hasErrors('personCode')}" th:errors="*{personCode}" ></td>
+			</tr>
+			<tr>
+				<td>IdP:</td>
+				<td> <input type="text" th:field="*{person}" /> </td>
+				<td th:if="${#fields.hasErrors('person')}" th:errors="*{person}" ></td>
+			</tr>
+			<tr>
+				<td> <input type="submit" name="Save"/></td>
+			</tr>
+		</table>
+	</form>
+
+</body>
+
+
+</html>
