@@ -29,12 +29,12 @@ public class Pupinas {
     private int idPu;
 
     @NotNull
-    @OneToOne(mappedBy = "pupinuKopejaisSkaits")
+    @OneToOne(mappedBy = "pupinas")
     @JoinColumn(name = "PupinuKopejaisSkaits")
     private Sasniegumi pupinuKopejaisSkaits;
 
     @NotNull
-    @OneToOne(mappedBy = "pupinuSkaitsParKlikski")
+    @OneToOne(mappedBy = "pupinas")
     @JoinColumn(name = "PupinuSkaitsParKlikski")
     private Koks pupinuSkaitsParKlikski;
 

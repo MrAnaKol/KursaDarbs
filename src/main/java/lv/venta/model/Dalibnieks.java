@@ -1,6 +1,7 @@
 package lv.venta.model;
 
 import java.sql.Date;
+import java.util.Collection;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -66,8 +67,9 @@ public class Dalibnieks {
     private Koks koks;
 
     @OneToMany(mappedBy = "dalibnieks")
+    @ToString.Exclude
     @JoinColumn(name = "IdPi")
-    private Pirkumi pirkumi;
+    private Collection<Pirkumi> pirkumi;
 
     public Dalibnieks(String loma, String lietotajvards, String parole, Date izveidesDatums) {
         setLoma(loma);
