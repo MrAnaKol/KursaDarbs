@@ -1,7 +1,6 @@
 package lv.venta.model;
 
-import java.util.Set;
-
+import java.util.Collection;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,27 +32,28 @@ public class Koks {
     private int idK;
 
     @OneToOne(mappedBy = "koks")
-    private Dalibnieks dalibnieks;
+    @JoinColumn(name = "IdD")
+    private Dalibnieks idD;
 
     @NotNull
     @Column(name = "Augstums")
     private int augstums;
 
     @NotNull
-    @OneToOne(mappedBy = "kokaLimenis")
+    @OneToOne(mappedBy = "koks")
     @JoinColumn(name = "KokaLimenis")
     private Sasniegumi kokaLimenis;
 
     @NotNull
-    @OneToOne(mappedBy = "pupinuSkaitsParKlikski")
+    @OneToOne(mappedBy = "koks")
     @JoinColumn(name = "PupinuSkaitsParKlikski")
     private Pupinas pupinuSkaitsParKlikski;
 
-    @ManyToMany(mappedBy = "koki")
+    @ManyToMany(mappedBy = "koks")
     @JoinTable(
-            name = "Koks_Uzlabojumi",
+            name = "KoksUzlabojumi",
             joinColumns = @JoinColumn(name = "IdK"),
             inverseJoinColumns = @JoinColumn(name = "IdU")
     )
-    private Set<Uzlabojumi> uzlabojumi;
+    private Collection<Uzlabojumi> idU;
 }

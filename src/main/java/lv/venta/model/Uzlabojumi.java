@@ -1,7 +1,6 @@
 package lv.venta.model;
 
-import java.util.Set;
-
+import java.util.Collection;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +31,7 @@ public class Uzlabojumi {
     private int idU;
 
     @ManyToMany(mappedBy = "uzlabojumi")
-    private Set<Koks> koki;
+    private Collection<Koks> koki;
 
     @OneToOne(mappedBy = "uzlabojumi")
     private Pirkumi pirkumi;

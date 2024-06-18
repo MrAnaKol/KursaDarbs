@@ -36,6 +36,9 @@ public class Pirkumi {
     @ManyToOne
     @JoinColumn(name = "IdD")
     private Dalibnieks dalibnieks;
+    public Dalibnieks getIdD() {
+    	return dalibnieks;
+    }
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
