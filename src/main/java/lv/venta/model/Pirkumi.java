@@ -1,6 +1,6 @@
 package lv.venta.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,8 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -40,12 +38,10 @@ public class Pirkumi {
     	return dalibnieks;
     }
 
-    @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DatumsUnLaiks")
-    private Date datumsUnLaiks;
+    private LocalDateTime datumsUnLaiks = LocalDateTime.now();
 
-    @OneToOne(mappedBy = "pirkumi")
+    @OneToOne
     @JoinColumn(name = "IdU")
     private Uzlabojumi uzlabojumi;
 }

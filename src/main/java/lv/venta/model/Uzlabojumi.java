@@ -1,5 +1,6 @@
 package lv.venta.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -31,9 +34,11 @@ public class Uzlabojumi {
     private int idU;
 
     @ManyToMany(mappedBy = "uzlabojumi")
-    private Collection<Koks> koki;
+    @ToString.Exclude
+    private Collection<Koks> koki = new ArrayList<Koks>();
 
     @OneToOne(mappedBy = "uzlabojumi")
+    @ToString.Exclude
     private Pirkumi pirkumi;
 
     @NotNull
@@ -41,11 +46,12 @@ public class Uzlabojumi {
     @Column(name = "Nosaukums")
     private String nosaukums;
 
-    @NotNull
+    @Min(0)
+    @Max(1000000000)
     @Column(name = "Cena")
-    private double cena;
+    private int cena;
 
     @NotNull
     @Column(name = "UzlabojumaTips")
-    private int uzlabojumaTips;
+    private UzlabojumaTips uzlabojumaTips;
 }

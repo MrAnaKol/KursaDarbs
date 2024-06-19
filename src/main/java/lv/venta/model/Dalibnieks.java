@@ -1,6 +1,6 @@
 package lv.venta.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import jakarta.persistence.Column;
@@ -12,8 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -53,28 +51,25 @@ public class Dalibnieks {
     @Column(name = "Parole")
     private String parole;
 
-    @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "IzveidesDatums")
-    private Date izveidesDatums;
+    private LocalDateTime izveidesDatums = LocalDateTime.now();
 
-    @OneToOne(mappedBy = "dalibnieks")
+    @OneToOne
     @JoinColumn(name = "IdS")
     private Sasniegumi sasniegumi;
 
-    @OneToOne(mappedBy = "dalibnieks")
+    @OneToOne
     @JoinColumn(name = "IdK")
     private Koks koks;
 
     @OneToMany(mappedBy = "dalibnieks")
     @ToString.Exclude
-    @JoinColumn(name = "IdPi")
     private Collection<Pirkumi> pirkumi;
 
-    public Dalibnieks(String loma, String lietotajvards, String parole, Date izveidesDatums) {
+
+    public Dalibnieks(String loma, String lietotajvards, String parole) {
         setLoma(loma);
         setLietotajvards(lietotajvards);
         setParole(parole);
-        setIzveidesDatums(izveidesDatums);
     }
 }

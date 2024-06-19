@@ -1,10 +1,12 @@
 package lv.venta.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -28,17 +30,19 @@ public class Sasniegumi {
     private int idS;
 
     @OneToOne(mappedBy = "sasniegumi")
-    private Dalibnieks dalibnieks;
+    private Dalibnieks idD;
 
-    @NotNull
-    @Column(name = "PupinuKopejaisSkaits")
-    private int pupinuKopejaisSkaits;
+    @Embedded
+    private Pupinas pupinas;
 
-    @NotNull
+    @OneToOne
+    @JoinColumn(name = "Koks")
+    private Koks koks;
+    
     @Column(name = "KokaLimenis")
     private int kokaLimenis;
+    public void setKokaLimenis() {
+    	this.kokaLimenis = koks.getKokaLimenis();
+    }
 
-    @NotNull
-    @Column(name = "UzspiestasReizes")
-    private int uzspiestasReizes;
 }

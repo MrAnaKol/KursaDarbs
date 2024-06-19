@@ -1,5 +1,6 @@
 package lv.venta.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +12,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -32,28 +35,28 @@ public class Koks {
     private int idK;
 
     @OneToOne(mappedBy = "koks")
-    @JoinColumn(name = "IdD")
+    @ToString.Exclude
     private Dalibnieks idD;
 
-    @NotNull
+    @Min(0)
+    @Max(1000000)
     @Column(name = "Augstums")
     private int augstums;
 
-    @NotNull
-    @OneToOne(mappedBy = "koks")
-    @JoinColumn(name = "KokaLimenis")
-    private Sasniegumi kokaLimenis;
+    @Min(0)
+    @Max(4)
+    @Column(name = "KokaLimenis")
+    private int kokaLimenis;
 
-    @NotNull
-    @OneToOne(mappedBy = "koks")
-    @JoinColumn(name = "PupinuSkaitsParKlikski")
-    private Pupinas pupinuSkaitsParKlikski;
-
-    @ManyToMany(mappedBy = "koks")
+    @ManyToMany
     @JoinTable(
             name = "KoksUzlabojumi",
             joinColumns = @JoinColumn(name = "IdK"),
             inverseJoinColumns = @JoinColumn(name = "IdU")
     )
-    private Collection<Uzlabojumi> idU;
+    private Collection<Uzlabojumi> uzlabojumi = new ArrayList<>();
+    
+    @OneToOne(mappedBy = "koks")
+    @ToString.Exclude
+    private Sasniegumi sasniegumi;
 }
