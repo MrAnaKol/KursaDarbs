@@ -48,4 +48,10 @@ public class DalibnieksCRUDService implements IDalibnieksCRUDService {
 		
 		return result;
 	}
+
+	@Override
+	public Dalibnieks izveletiesDalibniekuPecLietotajvardaUnParoles(String lietotajvards, String parole) {
+		dalibnieksRepo.findByLietotajvardsAndParole(lietotajvards, parole);
+		return null;
+	}
 }
