@@ -26,7 +26,6 @@ public class DalibnieksController {
     public String registerUser(@Valid Dalibnieks dalibnieks, BindingResult result, Model model) {
         if (result.hasErrors()) {
         	model.addAttribute("dalibnieks",dalibnieks);
-        	System.out.println(result);
             return "registreties-page";
         }
         try {
@@ -39,19 +38,23 @@ public class DalibnieksController {
     }
 
     @GetMapping("/login") // localhost:8080/login
-    public String showLoginForm() {
+    public String showLoginForm(Model model) {
+    	model.addAttribute("dalibnieks", new Dalibnieks());
         return "ieiet-page";
     }
 
-    /*@PostMapping("/login")
-    public String loginUser(@RequestParam("lietotajvārds") String lietotajvards, @RequestParam("parole") String parole, Model model) {
+    @PostMapping("/login")
+    public String loginUser(@Valid Dalibnieks dalibnieks, BindingResult result, Model model) {
+    	if (result.hasErrors()) {
+        	model.addAttribute("dalibnieks",dalibnieks);
+            return "ieiet-page";
+        }
         try {
-            Dalibnieks dalibnieks = dalibnieksService.esosaislietotajs(lietotajvards, parole);
-            if (dalibnieks != null) {
-
-                return "redirect:/sakums";
+            Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecLietotajvardaUnParoles(dalibnieks.getLietotajvards(), dalibnieks.getParole());
+            if (iegutaisDalibnieks != null) {
+                return "redirect:/profils/" + iegutaisDalibnieks.getIdD();
             } else {
-                model.addAttribute("errormsg", "Nepareizs lietotājvārds vai parole");
+            	model.addAttribute("dalibnieks",dalibnieks);
                 return "ieiet-page";
             }
         } catch (Exception e) {
@@ -59,10 +62,9 @@ public class DalibnieksController {
             return "error-page";
         }
     }
-*/
-    @GetMapping("/sakums") // localhost:8080/sakums
-    public String sakumsPage(Model model) {
+    @GetMapping("/profils/{id}") // localhost:8080/profils/1
+    public String profilPage(@PathVariable("id") int id, Model model) {
 
-        return "sakums-page"; 
+        return "profils-page"; 
     }
 }
