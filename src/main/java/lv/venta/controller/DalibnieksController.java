@@ -23,8 +23,10 @@ public class DalibnieksController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("dalibnieks") Dalibnieks dalibnieks, BindingResult result, Model model) {
+    public String registerUser(@Valid Dalibnieks dalibnieks, BindingResult result, Model model) {
         if (result.hasErrors()) {
+        	model.addAttribute("dalibnieks",dalibnieks);
+        	System.out.println(result);
             return "registreties-page";
         }
         try {
@@ -46,8 +48,8 @@ public class DalibnieksController {
         try {
             Dalibnieks dalibnieks = dalibnieksService.esosaislietotajs(lietotajvards, parole);
             if (dalibnieks != null) {
-                // Assuming we set some session or authentication here
-                return "redirect:/home";
+
+                return "redirect:/sakums";
             } else {
                 model.addAttribute("errormsg", "Nepareizs lietotājvārds vai parole");
                 return "ieiet-page";
@@ -60,7 +62,7 @@ public class DalibnieksController {
 */
     @GetMapping("/sakums") // localhost:8080/sakums
     public String sakumsPage(Model model) {
-        // Fetch some data for home page if needed
+
         return "sakums-page"; 
     }
 }
