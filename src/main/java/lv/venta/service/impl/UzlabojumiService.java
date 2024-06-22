@@ -33,9 +33,10 @@ public class UzlabojumiService implements IUzlabojumiService{
 	}
 
 	@Override
-	public void nopirktUzlabojumu(int idU, int idD, int cena) throws Exception {
+	public void nopirktUzlabojumu(int idU, int idD) throws Exception {
 		if(idU < 0 || idD < 0) throw new Exception("Id nevar būt negatīvs");
 		Uzlabojumi uzlabojums = izveletiesUzlabojumuPecId(idU);
+		int cena = uzlabojums.getCena();
 		switch (uzlabojums.getUzlabojumaTips()) {
 		case atrums:
 			sasniegumiService.izmainitPupinuSkaitu(idD, -cena);
@@ -47,6 +48,12 @@ public class UzlabojumiService implements IUzlabojumiService{
 			sasniegumiService.izmainitPupinuSkaitu(idD, -cena);
 			pirkumuService.izveidotPirkumaIerakstu(idD, idU);
 			kokaService.izmainitKokaAugstumu(idD, 5);
+			kokaService.pieliktUzlabojumu(idD, idU);
+			break;
+		case autonoms:
+			sasniegumiService.izmainitPupinuSkaitu(idD, -cena);
+			pirkumuService.izveidotPirkumaIerakstu(idD, idU);
+			sasniegumiService.izmainitAutonomuPupinuSkaitu(idD, 1);
 			kokaService.pieliktUzlabojumu(idD, idU);
 			break;
 		}
