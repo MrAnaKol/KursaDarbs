@@ -6,4 +6,5 @@ public interface IKoksService {
 	void izdzestKokuPecId(int id) throws Exception;
 	Koks izveletiesKokuPecId(int id) throws Exception;
 	void izmainitKokaAugstumu(int id, int skaits) throws Exception;
+	void pieliktUzlabojumu(int id, int idU) throws Exception;
 }

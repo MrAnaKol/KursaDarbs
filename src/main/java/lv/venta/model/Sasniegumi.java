@@ -1,5 +1,6 @@
 package lv.venta.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -22,6 +23,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Sasniegumi {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(value = AccessLevel.NONE)
@@ -32,9 +34,9 @@ public class Sasniegumi {
     private Dalibnieks idD;
 
     @Embedded
-    private Pupinas pupinas;
+    private Pupinas pupinas = new Pupinas();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Koks")
     private Koks koks;
     
@@ -43,5 +45,8 @@ public class Sasniegumi {
     public void setKokaLimenis() {
     	this.kokaLimenis = koks.getKokaLimenis();
     }
-
+    
+    public Sasniegumi(Koks koks) {
+        setKoks(koks);
+    }
 }

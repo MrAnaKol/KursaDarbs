@@ -2,8 +2,11 @@ package lv.venta.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,7 +50,7 @@ public class Koks {
     @Column(name = "KokaLimenis")
     private int kokaLimenis;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "KoksUzlabojumi",
             joinColumns = @JoinColumn(name = "IdK"),
@@ -58,4 +61,12 @@ public class Koks {
     @OneToOne(mappedBy = "koks")
     @ToString.Exclude
     private Sasniegumi sasniegumi;
+    
+    public void addUzlabojumi(Uzlabojumi uzlabojums) {
+    	uzlabojumi.add(uzlabojums);
+	}
+	
+	public void removeUzlabojumi(Uzlabojumi uzlabojums) {
+		uzlabojumi.remove(uzlabojums);
+	}
 }

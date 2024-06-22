@@ -19,15 +19,15 @@ public class Pupinas {
     @Min(0)
     @Max(1000000000)
     @Column(name = "PupinuKopejaisSkaits")
-    private int pupinuKopejaisSkaits;
+    private int pupinuKopejaisSkaits = 0;
 
     @Min(1)
     @Max(100000)
     @Column(name = "PupinuSkaitsParKlikski")
-    private int pupinuSkaitsParKlikski;
+    private int pupinuSkaitsParKlikski = 1;
 
     @Min(0)
     @Max(1000000)
     @Column(name = "AutonomasPupinas")
-    private int autonomasPupinas;
+    private int autonomasPupinas = 0;
 }

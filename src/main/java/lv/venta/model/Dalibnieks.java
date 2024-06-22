@@ -3,6 +3,7 @@ package lv.venta.model;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,18 +48,18 @@ public class Dalibnieks {
 
     @NotNull
     @Size(min = 8, max = 50)
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]$+") //Satur vismaz vienu burtu, vienu ciparu un vienu speciālo rakstzīmi.
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]+$") //Satur vismaz vienu burtu, vienu ciparu un vienu speciālo rakstzīmi.
     @Column(name = "Parole")
     private String parole;
 
     @Column(name = "IzveidesDatums")
     private LocalDateTime izveidesDatums = LocalDateTime.now();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "IdS")
     private Sasniegumi sasniegumi;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "IdK")
     private Koks koks;
 
@@ -71,7 +72,7 @@ public class Dalibnieks {
         setLoma(loma);
         setLietotajvards(lietotajvards);
         setParole(parole);
-        setSasniegumi(new Sasniegumi());
         setKoks(new Koks());
+        setSasniegumi(new Sasniegumi(koks));
     }
 }
