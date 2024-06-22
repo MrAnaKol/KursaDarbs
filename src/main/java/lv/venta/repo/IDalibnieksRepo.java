@@ -1,6 +1,7 @@
 package lv.venta.repo;
 
 import org.springframework.data.repository.CrudRepository;
+
 import lv.venta.model.Dalibnieks;
 
 public interface IDalibnieksRepo extends CrudRepository<Dalibnieks, Integer> {
@@ -11,4 +12,5 @@ public interface IDalibnieksRepo extends CrudRepository<Dalibnieks, Integer> {
 
 	Dalibnieks findByLietotajvards(String lietotajvards);
 
+	Dalibnieks findByLietotajvardsAndParole(String lietotajvards, String parole);
 }
