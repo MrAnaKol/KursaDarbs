@@ -7,4 +7,5 @@ public interface IDalibnieksCRUDService {
 	void jaunsDalibnieks(String loma, String lietotajvards, String parole) throws Exception;
 	void atjaunotDalibniekuPecId(int id, String loma, String lietotajvards, String parole) throws Exception;
 	Dalibnieks izveletiesDalibniekuPecId(int id) throws Exception;
+	Dalibnieks izveletiesDalibniekuPecLietotajvardaUnParoles(String lietotajvards, String parole) throws Exception;
 }

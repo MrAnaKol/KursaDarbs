@@ -38,7 +38,7 @@ public class Dalibnieks {
     @NotNull
     @Size(min = 2, max = 45)
     @Column(name = "Loma")
-    private String loma;
+    private String loma = "Spēlētājs";
 
     @NotNull
     @Size(min = 3, max = 20)
