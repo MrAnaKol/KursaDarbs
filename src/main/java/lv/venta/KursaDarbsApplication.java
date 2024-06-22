@@ -39,18 +39,27 @@ public class KursaDarbsApplication {
 				dalibnieksRepo.save(da1);
 				dalibnieksRepo.save(da2);
 				
-				Uzlabojumi uzl1 = new Uzlabojumi("Ūdens", 10, UzlabojumaTips.udens);
-				Uzlabojumi uzl2 = new Uzlabojumi("Ūdens", 15, UzlabojumaTips.udens);
-				Uzlabojumi uzl3 = new Uzlabojumi("Ātrums", 10, UzlabojumaTips.atrums);
-				uzlabojumiRepo.save(uzl1);
-				uzlabojumiRepo.save(uzl2);
-				uzlabojumiRepo.save(uzl3);
+				for (int i = 0; i < 10; i++) {
+					uzlabojumiService.jaunsUzlabojums("Ūdens", (10 + 10 * i), UzlabojumaTips.udens);
+				}
+				for (int i = 0; i < 10; i++) {
+					uzlabojumiService.jaunsUzlabojums("Ātrums", (10 + 5 * i), UzlabojumaTips.atrums);
+				}
+				for (int i = 0; i < 10; i++) {
+					uzlabojumiService.jaunsUzlabojums("Autonoms", (10 + 50 * i), UzlabojumaTips.autonoms);
+				}
 				
 				sasniegumiService.izmainitPupinuSkaitu(1, 100);
-				uzlabojumiService.nopirktUzlabojumu(1, 1, 10);
-				uzlabojumiService.nopirktUzlabojumu(2, 1, 15);
-				//uzlabojumiService.nopirktUzlabojumu(1, 1, 20);
-				uzlabojumiService.nopirktUzlabojumu(3, 1, 10);
+				sasniegumiService.tiekUzspiestsUzKoka(1);//101
+				uzlabojumiService.nopirktUzlabojumu(1, 1);//91
+				uzlabojumiService.nopirktUzlabojumu(2, 1);//71
+				uzlabojumiService.nopirktUzlabojumu(11, 1);//61
+				
+				sasniegumiService.tiekUzspiestsUzKoka(1);//63
+				sasniegumiService.tiekUzspiestsUzKoka(1);//65
+				sasniegumiService.tiekUzspiestsUzKoka(1);//67
+				
+				uzlabojumiService.nopirktUzlabojumu(21, 1);//57
 			}
 		};
 	}

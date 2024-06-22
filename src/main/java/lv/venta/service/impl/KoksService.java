@@ -79,5 +79,5 @@ public class KoksService implements IKoksService{
 		atjaunotsKoks.addUzlabojumi(uzlabojumiRepo.findByIdU(idU));
 		kokaRepo.save(atjaunotsKoks);
 	}
-	
+
 }

@@ -54,6 +54,9 @@ public class Dalibnieks {
 
     @Column(name = "IzveidesDatums")
     private LocalDateTime izveidesDatums = LocalDateTime.now();
+    
+    @Column(name = "PedejoReiziIegajis")
+    private LocalDateTime pedejoReiziIegajis = LocalDateTime.now();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "IdS")
