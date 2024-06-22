@@ -47,7 +47,7 @@ public class Dalibnieks {
 
     @NotNull
     @Size(min = 8, max = 50)
-    @Pattern(regexp = "[A-ZĀĒŪĪĻĶĢŠŽČŅ]{1}[0-9]{1}+")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]$+") //Satur vismaz vienu burtu, vienu ciparu un vienu speciālo rakstzīmi.
     @Column(name = "Parole")
     private String parole;
 
@@ -71,5 +71,7 @@ public class Dalibnieks {
         setLoma(loma);
         setLietotajvards(lietotajvards);
         setParole(parole);
+        setSasniegumi(new Sasniegumi());
+        setKoks(new Koks());
     }
 }

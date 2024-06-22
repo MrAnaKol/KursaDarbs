@@ -54,4 +54,10 @@ public class Uzlabojumi {
     @NotNull
     @Column(name = "UzlabojumaTips")
     private UzlabojumaTips uzlabojumaTips;
+    
+    public Uzlabojumi(String nosaukums, int cena, UzlabojumaTips uzlabojumaTips) {
+        setNosaukums(nosaukums);
+        setCena(cena);
+        setUzlabojumaTips(uzlabojumaTips);
+    }
 }

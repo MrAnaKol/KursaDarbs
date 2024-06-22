@@ -11,7 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,4 +43,9 @@ public class Pirkumi {
     @OneToOne
     @JoinColumn(name = "IdU")
     private Uzlabojumi uzlabojumi;
+    
+    public Pirkumi(Dalibnieks dalibnieks, Uzlabojumi uzlabojumi) {
+        setDalibnieks(dalibnieks);
+        setUzlabojumi(uzlabojumi);
+    }
 }
