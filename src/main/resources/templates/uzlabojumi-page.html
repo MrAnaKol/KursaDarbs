@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Uzlabojumi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        input[type="submit"],
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        input[type="submit"]:hover,
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .nav-bar {
+            background-color: #4CAF50;
+            overflow: hidden;
+        }
+
+        .nav-bar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .nav-bar a:hover {
+            background-color: #45a049;
+        }
+
+        .nav-bar .right {
+            float: right;
+        }
+
+        .logout-btn {
+            background-color: #d9534f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav-bar">
+        <a href="/game">Spele</a>
+        <a href="/upgrades">Uzlabojumi</a>
+        <a href="/profile">Profils</a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <p>Laika zona: <span id="timezone"></span></p>
+            <button class="logout-btn" onclick="logout()">Iziet</button>
+        </div>
+        <h2>Uzlabojumu Tabula</h2>
+        <table id="uzlabojumiTable">
+            <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Nosaukums</th>
+                    <th>Tips</th>
+                    <th>Cena</th>
+                    <th>Pirkt</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>1</td>
+                    <td>Uzlabojums A</td>
+                    <td>ūdens</td>
+                    <td>100</td>
+                    <td><button class="btn" onclick="confirmPurchase(1)">Pirkt</button></td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            document.getElementById('timezone').textContent = Intl.LocDateTimeFormat().resolvedOptions().timeZone;
+
+            loadUzlabojumi();
+        });
+
+        function loadUzlabojumi() {
+           
+            const uzlabojumi = [
+                { id: 1, nosaukums: 'Uzlabojums A', tips: 'ūdens', cena: 100 },
+                { id: 2, nosaukums: 'Uzlabojums B', tips: 'ātrums', cena: 200 }
+            ];
+
+            const tbody = document.getElementById('uzlabojumiTable').querySelector('tbody');
+            uzlabojumi.forEach((uzlabojums, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${uzlabojums.nosaukums}</td>
+                    <td>${uzlabojums.tips}</td>
+                    <td>${uzlabojums.cena}</td>
+                    <td><button class="btn" onclick="confirmPurchase(${uzlabojums.id})">Pirkt</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function confirmPurchase(id) {
+            if (confirm('Vai tiešām vēlaties pirkt?')) {
+                
+                alert('Uzlabojums veiksmīgi nopirkts!');
+                
+                loadUzlabojumi();
+            }
+        }
+
+        function logout() {
+            
+            alert('Logged out!');
+        }
+    </script>
+</body>
+
+</html>

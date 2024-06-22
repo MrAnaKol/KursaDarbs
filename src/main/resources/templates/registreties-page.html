@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registreties</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        input[type="text"], input[type="password"], input[type="submit"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .nav-bar {
+            background-color: #4CAF50;
+            overflow: hidden;
+        }
+
+        .nav-bar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .nav-bar a:hover {
+            background-color: #45a049;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="/login" class="left">Ieiet</a>
+        <a href="/register" class="right">Registreties</a>
+        <a href="/sākums" class="right">Sakums</a>
+    </div>
+
+    <div class="container">
+        <h2>Reģistrēties</h2>
+        <form>
+            <label for="username">Lietotājvārds:</label><br>
+            <input type="text" id="username" name="username" placeholder="Lietotājvārds" required><br>
+            <label for="password">Parole:</label><br>
+            <input type="password" id="password" name="password" placeholder="Parole" required><br>
+            <input type="submit" value="Reģistrēties">
+        </form>
+        <div class="footer">
+            <p>Man ir profils? <a href="/login">Ieiet</a></p>
+        </div>
+    </div>
+</body>
+</html>
