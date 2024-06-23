@@ -94,20 +94,6 @@
             float: right;
         }
 
-        .logout-btn {
-            background-color: #d9534f;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-left: 10px;
-        }
-
-        .logout-btn:hover {
-            background-color: #c9302c;
-        }
     </style>
 </head>
 
@@ -116,12 +102,13 @@
         <a href="/game">Spele</a>
         <a href="/upgrades">Uzlabojumi</a>
         <a href="/profile">Profils</a>
+		<a href="/logout" class="right">Iziet</a>
     </div>
 
     <div class="container">
         <div class="header">
             <p>Laika zona: <span id="timezone"></span></p>
-            <button class="logout-btn" onclick="logout()">Iziet</button>
+			
         </div>
         <h2>Uzlabojumu Tabula</h2>
         <table id="uzlabojumiTable">
@@ -166,13 +153,13 @@
             const tbody = document.getElementById('uzlabojumiTable').querySelector('tbody');
             uzlabojumi.forEach((uzlabojums, index) => {
                 const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${uzlabojums.nosaukums}</td>
-                    <td>${uzlabojums.tips}</td>
-                    <td>${uzlabojums.cena}</td>
-                    <td><button class="btn" onclick="confirmPurchase(${uzlabojums.id})">Pirkt</button></td>
-                `;
+				row.innerHTML = `
+				    <td>${index + 1}</td>
+				    <td>${uzlabojums.nosaukums}</td>
+				    <td>${uzlabojums.tips}</td>
+				    <td>${uzlabojums.cena}</td>
+					<td><button class="btn" onclick="confirmPurchase(${uzlabojums.id})">Pirkt</button></td>
+				`;
                 tbody.appendChild(row);
             });
         }
@@ -186,10 +173,6 @@
             }
         }
 
-        function logout() {
-            
-            alert('Logged out!');
-        }
     </script>
 </body>
 

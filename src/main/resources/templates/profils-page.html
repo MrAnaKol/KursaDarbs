@@ -163,12 +163,12 @@
 </head>
 
 <body>
-    <div class="nav-bar">
-        <a href="/game">Spele</a>
-        <a href="/upgrades">Uzlabojumi</a>
-        <a href="/profile">Profils</a>
-        <a href="/logout" class="right">Iziet</a>
-    </div>
+	<div class="nav-bar">
+		<a th:href="@{/game/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Spele</a>
+		<a th:href="@{/upgrades/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Uzlabojumi</a>
+		<a th:href="@{/profils/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Profils</a>
+		<a href="/logout" class="right">Iziet</a>
+	</div> 
 
     <div class="container">
         <div class="header">
@@ -198,20 +198,32 @@
         </table>
 
         <div class="achievements">
-            <h3>Mans koks: <a th:href="@{/game/{dalibnieks}(dalibnieks=${dalibnieks.idD})}" class="btn">Mans koks</a></h3>
+			<h3>Mans koks: <a th:href="@{/game/{dalibnieks}(dalibnieks=${dalibnieks.idD})}" class="btn">Mans koks</a></h3>
             <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Sasnieguma nosaukums</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="sasniegums, iterStat : ${sasniegumi}">
-                        <td th:text="${iterStat.count}"></td>
-                        <td th:text="${sasniegums.nosaukums}">Sasnieguma nosaukums</td>
-                    </tr>
-                </tbody>
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Sasnieguma nosaukums</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td th:text="${dalibnieks.sasniegumi.kokaLimenis}"></td>
+				        <td>Koka Līmenis</td>
+					</tr>
+					<tr>
+						<td th:text="${dalibnieks.sasniegumi.pupinas.pupinuKopejaisSkaits}"></td>
+				        <td>PupinuKopejaisSkaits</td>
+					</tr>
+					<tr>
+				        <td th:text="${dalibnieks.sasniegumi.pupinas.pupinuSkaitsParKlikski}"></td>
+				        <td>PupinuSkaitsParKlikski</td>
+					</tr>
+					<tr>
+				        <td th:text="${dalibnieks.sasniegumi.pupinas.autonomasPupinas}"></td>
+				        <td>AutonomasPupinas</td>
+					</tr>
+				</tbody>                                
             </table>
         </div>
 
@@ -226,10 +238,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="pirkums, iterStat : ${pirkumi}">
+                    <tr th:each="pirkums, iterStat : ${dalibnieks.pirkumi}">
                         <td th:text="${iterStat.count}"></td>
-                        <td th:text="${pirkums.nosaukums}">Uzlabojuma nosaukums</td>
-                        <td th:text="${pirkums.datumsLaiks}">Datums un laiks</td>
+                        <td th:text="${pirkums.uzlabojumi.nosaukums}"></td>
+                        <td th:text="${pirkums.datumsUnLaiks}"></td>
                     </tr>
                 </tbody>
             </table>

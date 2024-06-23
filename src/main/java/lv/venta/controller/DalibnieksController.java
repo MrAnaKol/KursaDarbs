@@ -68,18 +68,39 @@ public class DalibnieksController {
             return "error-page";
         }
     }
+    
+    @GetMapping("/logout") // localhost:8080/logout
+    public String logout() {
+    	return "redirect:/login";
+    }
+    
     @GetMapping("/profils/{id}") // localhost:8080/profils/1
     public String profilPage(@PathVariable("id") int id, Model model) {
-    	Dalibnieks iegutaisDalibnieks;
 		try {
-			iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+			Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
 			model.addAttribute("dalibnieks",iegutaisDalibnieks);
-			model.addAttribute("saniegumi",iegutaisDalibnieks.getSasniegumi());
 	        return "profils-page"; 
 		} catch (Exception e) {
 			model.addAttribute("errormsg", e.getMessage());
             return "error-page";
 		}
     	
+    }
+    
+    @PostMapping("/profils/{id}")
+    public String changePassword(@Valid Dalibnieks dalibnieks, @PathVariable("id") int id, BindingResult result, Model model) {
+    	if (result.hasErrors()) {
+        	model.addAttribute("dalibnieks",dalibnieks);
+            return "profils-page";
+        }
+        try {
+        	dalibnieksService.atjaunotDalibniekuPecId(dalibnieks.getIdD(), dalibnieks.getLoma(), dalibnieks.getLietotajvards(), dalibnieks.getParole());
+        	Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+			model.addAttribute("dalibnieks",iegutaisDalibnieks);
+        	return "profils-page";
+        } catch (Exception e) {
+            model.addAttribute("errormsg", e.getMessage());
+            return "error-page";
+        }
     }
 }
