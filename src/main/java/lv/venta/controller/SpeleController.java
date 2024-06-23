@@ -1,5 +1,5 @@
 package lv.venta.controller;
 
-public class a {
+public class SpeleController {
 
 }

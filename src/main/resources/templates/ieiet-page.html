@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ieiet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        input[type="text"], input[type="password"], input[type="submit"], input[type="checkbox"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .nav-bar {
+            background-color: #4CAF50;
+            overflow: hidden;
+        }
+
+        .nav-bar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .nav-bar a:hover {
+            background-color: #45a049;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .remember-me label {
+            margin-left: 10px;
+        }
+
+        .prompt {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .prompt button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .prompt button:hover {
+            background-color: #45a049;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function showPrompt() {
+            document.getElementById('rememberPrompt').style.display = 'block';
+        }
+
+        function rememberMe(response) {
+            if (response === 'yes') {
+                document.getElementById('remember').checked = true;
+            } else {
+				document.getElementById('remember').checked = false;
+			}
+            document.getElementById('rememberPrompt').style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="/register" class="left">Registreties</a>
+        <a href="/login" class="right">Ieiet</a>
+        <a href="/sakums" class="right">Sakums</a>
+    </div>
+
+    <div class="container">
+        <h2>Ieiet</h2>
+		<form action="#" th:action="@{/login}" th:object="${dalibnieks}" th:method="post">
+            <label for="username">Lietotājvārds:</label><br>
+            <input type="text" th:field="*{lietotajvards}" id="username" name="username" placeholder="Lietotājvārds" required><br>
+			<td th:if="${#fields.hasErrors('lietotajvards')}" th:errors="*{lietotajvards}" ></td>
+            <label for="password">Parole:</label><br>
+            <input type="password" th:field="*{parole}" id="password" name="password" placeholder="Parole" required><br>
+			<td th:if="${#fields.hasErrors('parole')}" th:errors="*{parole}" ></td>
+            <div class="remember-me">
+				<label for="remember">Atcerēties mani</label>
+                <input type="checkbox" onclick="showPrompt()" id="remember" name="remember">
+            </div>
+            <div class="prompt" id="rememberPrompt">
+                <p>Vai patiešām vēlies, lai tevi atceras?</p>
+                <button type="button" onclick="rememberMe('yes')">Jā</button>
+                <button type="button" onclick="rememberMe('no')">Nē</button>
+            </div>
+            <input type="submit" value="Ieiet">
+        </form>
+        <div class="footer">
+            <p>Nav profila? <a href="/register">Registreties</a></p>
+        </div>
+    </div>
+</body>
+</html>
