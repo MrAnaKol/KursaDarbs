@@ -52,10 +52,6 @@ public class DalibnieksCRUDService implements IDalibnieksCRUDService {
 	@Override
 	public Dalibnieks izveletiesDalibniekuPecLietotajvardaUnParoles(String lietotajvards, String parole) {
 		Dalibnieks dalibnieks = dalibnieksRepo.findByLietotajvardsAndParole(lietotajvards, parole);
-<<<<<<< HEAD
 		return dalibnieks;
-=======
-        return dalibnieks;
->>>>>>> miniMaster
 	}
 }
