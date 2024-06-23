@@ -114,7 +114,9 @@
         function rememberMe(response) {
             if (response === 'yes') {
                 document.getElementById('remember').checked = true;
-            }
+            } else {
+				document.getElementById('remember').checked = false;
+			}
             document.getElementById('rememberPrompt').style.display = 'none';
         }
     </script>
@@ -137,7 +139,7 @@
 			<td th:if="${#fields.hasErrors('parole')}" th:errors="*{parole}" ></td>
             <div class="remember-me">
 				<label for="remember">Atcerēties mani</label>
-                <input type="checkbox" id="remember" name="remember">
+                <input type="checkbox" onclick="showPrompt()" id="remember" name="remember">
             </div>
             <div class="prompt" id="rememberPrompt">
                 <p>Vai patiešām vēlies, lai tevi atceras?</p>

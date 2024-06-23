@@ -15,7 +15,12 @@ public class DalibnieksController {
     
     @Autowired
     private IDalibnieksCRUDService dalibnieksService;
-
+    
+    @GetMapping("/sakums") // localhost:8080/sakums
+    public String sakumsPage() {
+        return "sakums-page";
+    } 
+    
     @GetMapping("/register") // localhost:8080/register
     public String showRegistrationForm(Model model) {
         model.addAttribute("dalibnieks", new Dalibnieks());
@@ -47,6 +52,7 @@ public class DalibnieksController {
     public String loginUser(@Valid Dalibnieks dalibnieks, BindingResult result, Model model) {
     	if (result.hasErrors()) {
         	model.addAttribute("dalibnieks",dalibnieks);
+        	//System.out.println(result);
             return "ieiet-page";
         }
         try {
@@ -64,7 +70,16 @@ public class DalibnieksController {
     }
     @GetMapping("/profils/{id}") // localhost:8080/profils/1
     public String profilPage(@PathVariable("id") int id, Model model) {
-
-        return "profils-page"; 
+    	Dalibnieks iegutaisDalibnieks;
+		try {
+			iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+			model.addAttribute("dalibnieks",iegutaisDalibnieks);
+			model.addAttribute("saniegumi",iegutaisDalibnieks.getSasniegumi());
+	        return "profils-page"; 
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+            return "error-page";
+		}
+    	
     }
 }

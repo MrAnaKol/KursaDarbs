@@ -178,27 +178,27 @@
         <table>
 			<tr>
 			    <td>Pievienošanās laiks un datums:</td>
-				<td id="registrationDate">01.01.2024 10:00</td>
+				<td th:text="${dalibnieks.izveidesDatums}"></td>
 			</tr>
 			<tr>
 			    <td>Loma:</td>
-			    <td th:text="${dalibnieks.loma}">Loma</td>
+			    <td th:text="${dalibnieks.loma}"></td>
 			</tr>
             <tr>
                 <td>Lietotājvārds:</td>
-                <td th:text="${dalibnieks.lietotajvards}">Lietotājvārds</td>
+                <td th:text="${dalibnieks.lietotajvards}"></td>
             </tr>
             <tr>
                 <td>Parole:</td>
                 <td>
-                    <span th:text="${dalibnieks.parole}">Parole</span>
+                    <span th:text="${dalibnieks.parole}"></span>
                     <button class="btn" onclick="document.getElementById('editPasswordModal').style.display='block'">Rediģēt</button>
                 </td>
             </tr>
         </table>
 
         <div class="achievements">
-            <h3>Mans koks: <a href="/game" class="btn">Mans koks</a></h3>
+            <h3>Mans koks: <a th:href="@{/game/{dalibnieks}(dalibnieks=${dalibnieks.idD})}" class="btn">Mans koks</a></h3>
             <table>
                 <thead>
                     <tr>
@@ -246,15 +246,8 @@
                     <tr>
                         <td>Jaunā parole:</td>
                         <td>
-                            <input type="password" th:field="*{jaunaParole}" />
-                            <div th:if="${#fields.hasErrors('jaunaParole')}" th:errors="*{jaunaParole}" class="error"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Apstiprināt paroli:</td>
-                        <td>
-                            <input type="password" th:field="*{apstiprinatParole}" />
-                            <div th:if="${#fields.hasErrors('apstiprinatParole')}" th:errors="*{apstiprinatParole}" class="error"></div>
+                            <input type="password" th:field="*{parole}" />
+                            <div th:if="${#fields.hasErrors('parole')}" th:errors="*{parole}" class="error"></div>
                         </td>
                     </tr>
                     <tr>
