@@ -9,10 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import lv.venta.model.Dalibnieks;
 
-
 public class MyUserDetails implements UserDetails{
 
-	
 	private Dalibnieks dalibnieks;
 	
 	public MyUserDetails(Dalibnieks dalibnieks) {

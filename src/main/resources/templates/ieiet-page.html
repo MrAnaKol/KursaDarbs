@@ -112,12 +112,27 @@
         }
 
         function rememberMe(response) {
-            if (response === 'yes') {
-                document.getElementById('remember').checked = true;
-            } else {
-				document.getElementById('remember').checked = false;
-			}
-            document.getElementById('rememberPrompt').style.display = 'none';
+			if (response === 'yes') {
+			        document.getElementById('remember').checked = true;
+			        
+			        // Store the username and password in cookies
+			        var username = document.getElementById('username').value;
+			        var password = document.getElementById('password').value;
+			        
+			        // Set cookies with expiration time (e.g., 30 days)
+			        var now = new Date();
+			        var expirationDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days from now
+			        
+			        document.cookie = `rememberedUsername=${username}; expires=${expirationDate.toUTCString()}; path=/`;
+			        document.cookie = `rememberedPassword=${password}; expires=${expirationDate.toUTCString()}; path=/`;
+			    } else {
+			        document.getElementById('remember').checked = false;
+			        
+			        // Remove any existing cookies
+			        document.cookie = 'rememberedUsername=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+			        document.cookie = 'rememberedPassword=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+			    }
+			    document.getElementById('rememberPrompt').style.display = 'none';
         }
 		function togglePasswordVisibility() {
 			var passwordField = document.getElementById('password');

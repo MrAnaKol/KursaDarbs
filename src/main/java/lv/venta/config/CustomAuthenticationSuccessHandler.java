@@ -19,20 +19,14 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	public void onAuthenticationSuccess(jakarta.servlet.http.HttpServletRequest request,
 			jakarta.servlet.http.HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
-		System.out.println("test");
 		try {
-            // Custom logic after successful login
-            // For example, retrieving user-related data and processing it
             String username = authentication.getName();
             int userId = dalibnieksService.izveletiesDalibniekuPecLietotajvarda(username).getIdD();
-
-            // Redirect to a specific URL after successful login
             String redirectUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
                                     .path("profils/" + userId)
                                     .toUriString();
             response.sendRedirect(redirectUrl);
         } catch (Exception e) {
-            // Handle exceptions appropriately, for example, log the error and redirect to an error page
             response.sendRedirect("/error-page");
         }
 	}

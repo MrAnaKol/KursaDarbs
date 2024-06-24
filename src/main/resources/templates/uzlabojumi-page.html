@@ -102,6 +102,9 @@
 		<a th:href="@{/game/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Spele</a>
         <a th:href="@{/upgrades/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Uzlabojumi</a>
         <a th:href="@{/profils/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Profils</a>
+		<div th:if="${dalibnieks.loma == 'ADMIN'}">
+		    <a th:href="@{/h2-console}">H2-Konsole</a>
+		</div>
         <a href="/logout" class="right">Iziet</a>
     </div>
 

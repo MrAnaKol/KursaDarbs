@@ -36,10 +36,17 @@ public class DalibnieksController {
             return "registreties-page";
         }
         try {
-        	PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        	String encodedParole = encoder.encode(dalibnieks.getParole());
-            dalibnieksService.jaunsDalibnieks(dalibnieks.getLoma(), dalibnieks.getLietotajvards(), encodedParole);
-            return "redirect:/login";
+        	if(dalibnieks.getParole().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")){
+        		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+            	String encodedParole = encoder.encode(dalibnieks.getParole());
+                dalibnieksService.jaunsDalibnieks(dalibnieks.getLoma(), dalibnieks.getLietotajvards(), encodedParole);
+                return "redirect:/login";
+        	}
+        	else {
+        		model.addAttribute("dalibnieks", new Dalibnieks());
+				model.addAttribute("errormsg", "Parolei ir jābūt vismaz 8 simbolus garai un jāsatur vismaz vienu lielo burtu, vienu mazo burtu, vienu ciparu un vienu speciālo rakstzīmi!");
+	            return "registreties-page";
+        	}
         } catch (Exception e) {
             model.addAttribute("errormsg", e.getMessage());
             return "registreties-page";

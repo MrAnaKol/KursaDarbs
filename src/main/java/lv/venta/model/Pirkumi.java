@@ -40,9 +40,12 @@ public class Pirkumi {
     @Column(name = "DatumsUnLaiks")
     private LocalDateTime datumsUnLaiks = LocalDateTime.now();
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "IdU")
     private Uzlabojumi uzlabojumi;
+    public Uzlabojumi getUzlabojumi() {
+    	return uzlabojumi;
+    }
     
     public Pirkumi(Dalibnieks dalibnieks, Uzlabojumi uzlabojumi) {
         setDalibnieks(dalibnieks);

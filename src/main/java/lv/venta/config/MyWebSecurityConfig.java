@@ -36,49 +36,6 @@ public class MyWebSecurityConfig{
         return new CustomAuthenticationSuccessHandler();
     }
 	
-	/*@Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .formLogin(form->form.loginPage("/login").permitAll())
-                .authorizeHttpRequests(auth->auth.anyRequest().authenticated())
-                .build();
-    }*/
-	
-	/*@Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-            .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-            .logout()
-            	.logoutUrl("/logout")
-                .permitAll();
-        return http.build();
-    }*/
-	 
-	/*@Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeHttpRequests((authorize) ->
-                        authorize.anyRequest().authenticated()
-                ).formLogin(
-                        form -> form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/welcome")
-                                .permitAll()
-                ).logout(
-                        logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .permitAll()
-                );
-        return http.build();
-    }*/
-	
 	@Bean
 	public SecurityFilterChain configureEndpoints(HttpSecurity http) throws Exception {
 		
@@ -91,7 +48,6 @@ public class MyWebSecurityConfig{
 			.requestMatchers("/profils/**").hasAnyAuthority("USER", "ADMIN")
 			.requestMatchers("/game/**").hasAnyAuthority("USER", "ADMIN")
 			.requestMatchers("/upgrades/**").hasAnyAuthority("USER", "ADMIN")
-			.requestMatchers("/upgrades/update/**").hasAuthority("ADMIN")
 			.requestMatchers("/h2-console/**").hasAuthority("ADMIN")
 			);
 			

@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
@@ -37,9 +38,9 @@ public class Uzlabojumi {
     @ToString.Exclude
     private Collection<Koks> koki = new ArrayList<Koks>();
 
-    @OneToOne(mappedBy = "uzlabojumi")
+    @OneToMany(mappedBy = "uzlabojumi")
     @ToString.Exclude
-    private Pirkumi pirkumi;
+    private Collection<Pirkumi> pirkumi;
 
     @NotNull
     @Size(min = 2, max = 45)

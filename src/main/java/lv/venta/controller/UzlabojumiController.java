@@ -73,20 +73,4 @@ public class UzlabojumiController {
 			}
         }
     }
-    
-    @GetMapping("/upgrades/update/{id}") // localhost:8080/upgrades/update/1
-    public String upgradeUpdatePage(@PathVariable("id") int id, Model model) {
-		try {
-			Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
-			ArrayList<Uzlabojumi> iegutieUzlabojumi = uzlabojumiService.izveletiesVisusNeizmantotusUzlabojumus(id);
-			model.addAttribute("dalibnieks", iegutaisDalibnieks);
-			model.addAttribute("uzlabojumi", iegutieUzlabojumi);
-			model.addAttribute("uzlabojums", new Uzlabojumi()); 
-	        return "uzlabojumi-page"; 
-		} catch (Exception e) {
-			model.addAttribute("errormsg", e.getMessage());
-            return "error-page";
-		}
-    	
-    }
 }
