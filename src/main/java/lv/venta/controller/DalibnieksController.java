@@ -1,6 +1,8 @@
 package lv.venta.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -56,7 +58,9 @@ public class DalibnieksController {
             return "ieiet-page";
         }
         try {
-            Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecLietotajvardaUnParoles(dalibnieks.getLietotajvards(), dalibnieks.getParole());
+        	PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        	String encodedParole = encoder.encode(dalibnieks.getParole());
+            Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecLietotajvardaUnParoles(dalibnieks.getLietotajvards(), encodedParole);
             if (iegutaisDalibnieks != null) {
                 return "redirect:/profils/" + iegutaisDalibnieks.getIdD();
             } else {

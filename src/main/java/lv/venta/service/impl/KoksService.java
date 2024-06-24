@@ -53,17 +53,25 @@ public class KoksService implements IKoksService{
 			atjaunotsKoks.setKokaLimenis(1);
 			atjaunotiSasniegumi.setKokaLimenis(1);
 			break;
-		case 100:
+		case 50:
 			atjaunotsKoks.setKokaLimenis(2);
 			atjaunotiSasniegumi.setKokaLimenis(2);
 			break;
-		case 1000:
+		case 100:
 			atjaunotsKoks.setKokaLimenis(3);
 			atjaunotiSasniegumi.setKokaLimenis(3);
 			break;
-		case 10000:
+		case 500:
 			atjaunotsKoks.setKokaLimenis(4);
 			atjaunotiSasniegumi.setKokaLimenis(4);
+			break;
+		case 1000:
+			atjaunotsKoks.setKokaLimenis(5);
+			atjaunotiSasniegumi.setKokaLimenis(5);
+			break;
+		case 2000:
+			atjaunotsKoks.setKokaLimenis(6);
+			atjaunotiSasniegumi.setKokaLimenis(6);
 			break;
 		}
 		

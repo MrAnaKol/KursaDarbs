@@ -38,7 +38,7 @@ public class Dalibnieks {
     @NotNull
     @Size(min = 2, max = 45)
     @Column(name = "Loma")
-    private String loma = "Spēlētājs";
+    private String loma = "USER";
 
     @NotNull
     @Size(min = 3, max = 20)
@@ -47,8 +47,6 @@ public class Dalibnieks {
     private String lietotajvards;
 
     @NotNull
-    @Size(min = 8, max = 50)
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]+$") //Satur vismaz vienu burtu, vienu ciparu un vienu speciālo rakstzīmi.
     @Column(name = "Parole")
     private String parole;
 

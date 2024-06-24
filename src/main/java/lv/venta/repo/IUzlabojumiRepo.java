@@ -9,4 +9,6 @@ public interface IUzlabojumiRepo extends CrudRepository<Uzlabojumi, Integer> {
 
 	Uzlabojumi findByIdU(int id);
 
+	Uzlabojumi findByNosaukumsAndCena(String nosaukums, int cena);
+
 }
