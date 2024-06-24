@@ -79,6 +79,10 @@
             padding: 14px 20px;
             text-decoration: none;
         }
+		
+		.nav-bar .right {
+		    float: right;
+		}
 
         .nav-bar a:hover {
             background-color: #45a049;
@@ -95,43 +99,115 @@
             font-size: 12px;
         }
     </style>
+	<script type="text/javascript">
+        function updateTreeLevel(treeLevel) {
+            if (treeLevel === 1) {
+                document.getElementById('treeLevel0').style.display = 'none';
+                document.getElementById('treeLevel1').style.display = 'block';
+            } else if (treeLevel === 2) {
+                document.getElementById('treeLevel1').style.display = 'none';
+                document.getElementById('treeLevel2').style.display = 'block';
+            } else if (treeLevel === 3) {
+                document.getElementById('treeLevel2').style.display = 'none';
+                document.getElementById('treeLevel3').style.display = 'block';
+            } else if (treeLevel === 4) {
+                document.getElementById('treeLevel3').style.display = 'none';
+                document.getElementById('treeLevel4').style.display = 'block';
+			} else if (treeLevel === 5) {
+                document.getElementById('treeLevel3').style.display = 'none';
+                document.getElementById('treeLevel4').style.display = 'block';
+			} else if (treeLevel === 6) {
+                document.getElementById('treeLevel3').style.display = 'none';
+                document.getElementById('treeLevel4').style.display = 'block';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var treeLevel = parseInt(document.getElementById('treeLevelValue').value);
+            updateTreeLevel(treeLevel);
+        });
+    </script>
 </head>
 
 <body>
     <div class="nav-bar">
-        <a href="/game">Spele</a>
-        <a href="/upgrades">Uzlabojumi</a>
-        <a href="/profile">Profils</a>
+		<a th:href="@{/game/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Spele</a>
+        <a th:href="@{/upgrades/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Uzlabojumi</a>
+        <a th:href="@{/profils/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Profils</a>
+        <a href="/logout" class="right">Iziet</a>
     </div>
 
     <div class="container">
         <div class="left-side">
             <h2>Kafijas koks</h2>
-            <div class="tree-image" id="treeLevel1">
+			<div class="tree-image" id="treeLevel0">
 				<p>
-				          0000000000          
-				       00 0000000000000        
-				     00 000000000 000000000    
-				   00 00 0000 0000000 00000    
-				   0 0000000 00000000000000   
-				  0000000000000000000 000000   
-				 000 00000  00000000000000 000 
-				  0000000 0000 00  0000 000000 
-				 000  0000 00 00000 00  000000 
-				  00000000000 000000000 000    
-				  000   0000000 000 000000000  
-				    0000  00   000  0000 000   
-				    000000 000000 00000000     
-				       000000000000000000      
-				         000000000000          
-				              00              
-				              00              
-				         00         
-				              00              
-				  0000000  
-				  </p>
+						 0   0
+						000 000
+						  0 0
+						   0
+						   0 
+						  000
+               </p>
+			</div>
+			<div class="tree-image" id="treeLevel1" style="display: none;">
+			<p>
+					     00 000
+					  000  00 0000
+					 0000000    000
+					 00  0  00 0000
+					   0 0000 0000
+					    00 00 0
+					       00
+					       00
+					       00 
+					     000000
+	          </p>
+			  
+			</div>
+			<div class="tree-image" id="treeLevel2" style="display: none;">
+				<p>
+		                     00 000
+		                  000  00 0000
+		                0000 0 000 0000
+		               0000 00  000 0000
+		              000000  000 00   00 
+		              00000000 000 0 0000 
+		               00000  000    000
+		                 00  0  00 0000
+		                   0 0000 0000
+		                    00 00 0
+		                       00
+		                       00
+		                       00 
+		                     000000
+            	</p>
+			</div>
+            <div class="tree-image" id="treeLevel3" style="display: none;">
+				<p>
+					          0000000000          
+					       00 0000000000000        
+					     00 000000000 000000000    
+					   00 00 0000 0000000 00000    
+					   0 0000000 00000000000000   
+					  0000000000000000000 000000   
+					 000 00000  00000000000000 000 
+					  0000000 0000 00  0000 000000 
+					 000  0000 00 00000 00  000000 
+					  00000000000 000000000 000    
+					  000   0000000 000 000000000  
+					    0000  00   000  0000 000   
+					    000000 000000 00000000     
+					       000000000000000000      
+					         000000000000          
+					              00              
+					              00              
+					         00         
+					              00              
+					  0000000  
+				</p>
             </div>
-            <div class="tree-image" id="treeLevel2" style="display: none;">
+            <div class="tree-image" id="treeLevel4" style="display: none;">
 				<p>                                                  
 				                  00000  00000000                 
 				                 00000  00000  00000              
@@ -165,7 +241,7 @@
 				                      0000000                      
 				</p>
             </div>
-            <div class="tree-image" id="treeLevel3" style="display: none;">
+            <div class="tree-image" id="treeLevel5" style="display: none;">
 				<p>
 				                                                                                         
 				                                 00000000    00000  000000                               
@@ -224,88 +300,93 @@
 				                         
 				</p>
             </div>
-            <div class="tree-image" id="treeLevel4" style="display: none;">
-				<p>				                                                                                                                    		                                                                                                                        
-		                                            00000000000      000 00   000000000                                         
-		                                          000000000000      0000 000 0000000000                                         
-		                                         000         000   00000 0000 000000000000000                                   
-		                                        000 00000000000    0000 00000       000000000 0                                 
-		                             0000       0000000000000      000  00000     000000000  000                                
-		                          00000000000     00000000         000  00000    00000000   0000                                
-		                         0000  000000000             00000  000 00000   00000    000000   000                           
-		                          00000  0000000            0000 00  000000     0000  000000000 0000 0                   
-		                           000000   0  0  0000000  0000 0000            000  000000000 0000 0                 
-		                   000000    00000000000000   0000 000 00000            000 00000000    000000                  
-		                00000000 00      0000    00000000   000 0000             00 0000000      000000                  
-		               0000000  000  0000000      0          000000 0000000000       000           0000                  
-		              0000  000000  000000000     00             0000000000000000       0000000       0                    
-		             0000 0000000   00000000    0000  0         00000    0000000000   00000000 00    000                  
-		              00 0000000      000     0000000 00        00  00000   000000   00000    000  000000            
-		               0 00000               0000000 0000         00000000000   000 000  0000000   00000000          
-		            000         00000000    000000   0000       000000000000000000  000 0000000   0000000 000              
-		        000000000    000000000000   0000   000000        000000000000000     000000000     00000     000                  
-		        0 0000  00 00000000000  00 0000   00000000             0               0000         000      000000             
-		         0000000   000  000000000  0000  0000000  00              0000000000         0000000000    000 00000            
-		                   00 0000000000    000  0000000   0000000   0   000  00000000      000  000000000 000000000            
-		         0000      00000000000      0000  00000  00000000 0      00000  00000000    000000 00000000 000000              
-		        000000       00000            000 0000  00000000000       000000  00000      000000  00000        000 00        
-		       000 000 000 00         000000           000    00000         00000000000        00000000000       0000 000       
-		       00000000000 000     00000000 00        000 000000000   0000     00000000000000      000000       00000 0000      
-		        0000000000 0000   0000000  000         0000000000 0000  0000        00000000000                 0000 00000      
-		             0000 00000  000   000000           0000000    000000000       000000   00        000  000  000  00000      
-		             000 000000  00 00000000      0000              000000        000  0000000       00000  000 000  00000      
-		      000 0  000 000000  00 0000000    000 00000             00          000  0000000       000000  0000 0000 000       
-		     0000 00 0000 00000   0000000      000000000             00000000     00 0000000        0 0000  00000  000          
-		     0000 000  000000        000000     0000000        0  0000000000000    0 00000          0 000  000000               
-		     000 0000            00000000000000       0000      00000000000000          0           0 00  0000000               
-		     000 0000         000000000000000   0  000000 0   000000   000    00    000000000000    0000  00000000 00000000     
-		      000 0000       0000000 00000   00   00000  00  0000   00000000000    00000000000000    0000  000000 00000         
-		           0000 00  0000   0000 000000   0000000000  000  000000000000     0000   00000 0     0000  00000  0000000      
-		          00000 000 000  000000000000    00 000000    000000000000000    000000000    000      000000 00                
-		         00000  000 00 0000000000000      0 000000      0000000000      00   00000000000                                
-		         0000  0000    0000000000   0             00            00    000                 00000000    00000000          
-		         000  00000     000        000000000    000000000       00  000                  0000000 0  0000000  00         
-		          000 00000              0000  00   000 000000000      00000000     0000000000    00000000 0000    000          
-		           000 0000    0000       00000  0000000 00000000    00000000  0   000   00000000    0    000  0000000          
-		             000    0000000 0     000000      0         00  00000000 000   000000 00000000        000 0000000           
-		                  00000000000       00000000000          00000000000000     000000  0000    0     000000000             
-		                 0000    00000           000              0000 0000000        00000000000  0         0000               
-		                 000 0000000    00             000000000   0000000000       0    0000000 00    0000                     
-		                000 0000000         000     00000000000     0000000     0000000         0    000 000                    
-		                 000000000     0000000   000000       00     0000     000     00     0000     000 00                    
-		                    000       00000 00    0000000000000     00000     000000000    000000000   00 00                    
-		                             000  0000     0 000000000    00000000 0   000000     000000 00000   0                      
-		                            00 000000        0000000    000000000 00           0000000000  000                          
-		                            00 00000          0   00   00000000  0000       00000     00000000                          
-		                               00     000000000    00000000000000000   00000000000       0                              
-		                                   0000  00000000   00000 00000000000000000000000000                                    
-		                                   000000 00000000  0000  00000000000000   00000000                                     
-		                                    000000      0   0000 000000000   00 000000000                                       
-		                                      00000000000    00000000000      0 00000000                                        
-		                                           000         00000000        00000                                            
-		                                                        000000                                                          
-		                                                        000000                                                          
-		                                                         00000                                                          
-		                                                         00000                                                          
-		                                                         000000                                                         
-		                                                         000000                                                         
-		                                                         000000                                                         
-		                                                         000000                                                         
-		                                                         000000                                                  
-		                                                         000000                                              
-		                                                         000000                                              
-		                                                         0000000                                               
-		                                                         0000000                                                        
-		                                                         0000000                                                        
-		                                                         0000000                                                        
-		                             000000000000000000000000
-		                                                  00000000000000000000                                                        
-		                              0  0  0  0  0  0
-		                                                                         
-				</p>
+            <div class="tree-image" id="treeLevel6" style="display: none;">
+				<p>
+	                                                                              00                                               
+	                                               00000000000      0000000   000000000                                            
+	                                            00000000000000     00000 000 0000000000                                            
+	                                           000000000000 000    00000 0000 0000000000000000                                     
+	                                          0000 000000000000   00000 00000   000 0000000000 00                                  
+	                                          000 00000000000     0000 0000000     0000000000 000                                  
+	                            0000000000     000000000000       0000 000000    0000000000  0000                                  
+	                           00  0000000000    0000000    00000  000 000000    0000000   000000                                  
+	                           000000 00000000             0000 000 00000000    00000  0000000000 000000000                        
+	                           0000000 00000000    000    00000 000   000       0000 00000000000    0000000000                     
+	                       00    0000000   0000 000000000 0000 00000            000000000000000 000000 000000000                   
+	                   000000000   0000000000 0000000  00 0000000000            0000000000000    000000 00000000                   
+	                 000000000000              000000000   000 0000              0000000000       0000000    000                   
+	               00000000  000  000000000     0           00000000000000000000     0000   00000   00000000000                    
+	              00000 00000000 0000000000     000             000000000000000000      0000000000      00000                      
+	              0000000000000  0000000000  000000 00         00000000000000000000   0000000000000   00 0    0000000              
+	              000000000000    000000    00000000000        000  00000  00000000  0000000  00000 0000 00 0000000000             
+	               000000000               00000000 0000       00000000000000   000000000 00000000  0000000 0000000000             
+	            000   000    000000000    0000000  00000        0000000000000000000 0000000000000  000 0000  0000000               
+	         000000000    0000000000000  000000   000000        00000000000000000    00 0000000     000000                         
+	        00000000000 0000000000000000 00000  000000000          00000000000        0 00000        00000      0000               
+	         000000000 00000        0000 00000 00000000000                000000000            000000000     0000000000            
+	          00000    0000000000000000  00000 00000000   0000000        0000000000000        0000000000000 00000000000            
+	          000       0000000000000     0000 0000000   00000000 0     000000 000000000     00000 0000000000000000000             
+	       000 000 000 00         000000           000    00000         00000000000        00000000000       0000 000       
+	       00000000000 000     00000000 00        000 000000000   0000     00000000000000      000000       00000 0000      
+	        0000000000 0000   0000000  000         0000000000 0000  0000        00000000000                 0000 00000      
+	             0000 00000  000   000000           0000000    000000000       000000   00        000  000  000  00000      
+	             000 000000  00 00000000      0000              000000        000  0000000       00000  000 000  00000      
+	      000 0  000 000000  00 0000000    000 00000             00          000  0000000       000000  0000 0000 000       
+	     0000 00 0000 00000   0000000      000000000             00000000     00 0000000        0 0000  00000  000          
+	     0000 000  000000        000000     0000000        0  0000000000000    0 00000          0 000  000000               
+	     000 0000            00000000000000       0000      00000000000000          0           0 00  0000000               
+	     000 0000         000000000000000   0  000000 0   000000   000    00    000000000000    0000  00000000 00000000     
+	      000 0000       0000000 00000   00   00000  00  0000   00000000000    00000000000000    0000  000000 00000         
+	           0000 00  0000   0000 000000   0000000000  000  000000000000     0000   00000 0     0000  00000  0000000      
+	          00000 000 000  000000000000    00 000000    000000000000000    000000000    000      000000 00                
+	         00000  000 00 0000000000000      0 000000      0000000000      00   00000000000                                
+	         0000  0000    0000000000   0             00            00    000                 00000000    00000000          
+	         000  00000     000        000000000    000000000       00  000                  0000000 0  0000000  00         
+	          000 00000              0000  00   000 000000000      00000000     0000000000    00000000 0000    000          
+	           000 0000    0000       00000  0000000 00000000    00000000  0   000   00000000    0    000  0000000          
+	             000    0000000 0     000000      0         00  00000000 000   000000 00000000        000 0000000           
+	                  00000000000       00000000000          00000000000000     000000  0000    0     000000000             
+	                 0000    00000           000              0000 0000000        00000000000  0         0000               
+	                 000 0000000    00             000000000   0000000000       0    0000000 00    0000                     
+	                000 0000000         000     00000000000     0000000     0000000         0    000 000                    
+	                 000000000     0000000   000000       00     0000     000     00     0000     000 00                    
+	                    000       00000 00    0000000000000     00000     000000000    000000000   00 00                    
+	                             000  0000     0 000000000    00000000 0   000000     000000 00000   0                      
+	                            00 000000        0000000    000000000 00           0000000000  000                          
+	                            00 00000          0   00   00000000  0000       00000     00000000                          
+	                               00     000000000    00000000000000000   00000000000       0                              
+	                                   0000  00000000   00000 00000000000000000000000000                                    
+	                                   000000 00000000  0000  00000000000000   00000000                                     
+	                                    000000      0   0000 000000000   00 000000000                                       
+	                                      00000000000    00000000000      0 00000000                                        
+	                                           000         00000000        00000                                            
+	                                                        000000                                                          
+	                                                        000000                                                          
+	                                                         00000                                                          
+	                                                         00000                                                          
+	                                                         000000                                                         
+	                                                         000000                                                         
+	                                                         000000                                                         
+	                                                         000000                                                         
+	                                                         000000                                                  
+	                                                         000000                                              
+	                                                         000000                                              
+	                                                         0000000                                               
+	                                                         0000000                                                        
+	                                                         0000000                                                        
+	                                                         0000000                                                        
+	                             000000000000000000000000
+	                                                  00000000000000000000                                                        
+	                              0  0  0  0  0  0
+	                                                                         
+	        	</p>
             </div>
-            <button class="btn" onclick="incrementBeans()">Pupiņa</button>
-            <p id="beanCounter">+1 Pupiņa</p>
+			<form action="#" th:action="@{/game/{dalibnieks}(dalibnieks=${dalibnieks.idD})}" th:object="${dalibnieks}" th:method="post">
+				<input type="hidden" th:field="*{loma}" />
+				<input type="hidden" th:field="*{lietotajvards}" />
+				<input type="hidden" th:field="*{parole}" />  
+				<input type="submit" value="Pupiņa">
+			</form>
         </div>
         <div class="right-side">
             <h2>Pupiņas</h2>
@@ -316,9 +397,9 @@
                     <th>Autonomās pupiņas</th>
                 </tr>
                 <tr>
-                    <td id="totalBeans">0</td>
-                    <td id="beansPerClick">1</td>
-                    <td id="autoBeans">0</td>
+                    <td th:text="${dalibnieks.sasniegumi.pupinas.pupinuKopejaisSkaits}" id="totalBeans"></td>
+                    <td th:text="${dalibnieks.sasniegumi.pupinas.pupinuSkaitsParKlikski}" id="beansPerClick"></td>
+                    <td th:text="${dalibnieks.sasniegumi.pupinas.autonomasPupinas}" id="autoBeans"></td>
                 </tr>
             </table>
 
@@ -327,77 +408,17 @@
                 <tr>
                     <th>Koka augstums</th>
                     <th>Koka līmenis</th>
-                    <th>Uzlabojumu nosaukums</th>
-                    <th>Skaits</th>
                 </tr>
                 <tr>
-                    <td id="treeHeight">0</td>
-                    <td id="treeLevel">1</td>
-                    <td id="upgradeName">Nav</td>
-                    <td id="upgradeCount">0</td>
+                    <td th:text="${dalibnieks.koks.augstums}" id="treeHeight"></td>
+                    <td th:text="${dalibnieks.koks.kokaLimenis}" id="treeLevel"></td>
                 </tr>
             </table>
         </div>
     </div>
-
-	<script>
-	    let totalBeans = 0;
-	    let beansPerClick = 1;
-	    let autoBeans = 0;
-	    let beansPerMinute = 1; // Adjust as needed
-	    let logoutTime = null;
 	
-	    document.addEventListener('DOMContentLoaded', () => {
-	        loadPlayerData();
-	    });
+	<input type="hidden" id="treeLevelValue" th:value="${dalibnieks.koks.kokaLimenis}" />
 	
-	    function incrementBeans() {
-	        totalBeans += beansPerClick;
-	        document.getElementById('totalBeans').innerText = totalBeans;
-	        document.getElementById('beanCounter').innerText = `+${beansPerClick} Pupiņa`;
-	
-	        updateTreeLevel();
-	    }
-	
-	    function updateTreeLevel() {
-	        if (totalBeans >= 1000 && treeLevel < 2) {
-	            treeLevel = 2;
-	            document.getElementById('treeLevel1').style.display = 'none';
-	            document.getElementById('treeLevel2').style.display = 'block';
-	        } else if (totalBeans >= 5000 && treeLevel < 3) {
-	            treeLevel = 3;
-	            document.getElementById('treeLevel2').style.display = 'none';
-	            document.getElementById('treeLevel3').style.display = 'block';
-	        } else if (totalBeans >= 10000 && treeLevel < 4) {
-	            treeLevel = 4;
-	            document.getElementById('treeLevel3').style.display = 'none';
-	            document.getElementById('treeLevel4').style.display = 'block';
-	        }
-	        document.getElementById('treeLevel').innerText = treeLevel;
-	    }
-	
-	    function logout() {
-	        logoutTime = new Date().getTime();
-	        localStorage.setItem('logoutTime', logoutTime);
-	        alert('Logged out!');
-	    }
-	
-	    function loadPlayerData() {
-
-	        const storedLogoutTime = localStorage.getItem('logoutTime');
-	        if (storedLogoutTime) {
-	            const currentTime = new Date().getTime();
-	            const elapsedMinutes = (currentTime - storedLogoutTime) / 60000;
-	            autoBeans += Math.min(elapsedMinutes * beansPerMinute, 1000000); 
-	            totalBeans += autoBeans;
-	            document.getElementById('autoBeans').innerText = autoBeans;
-	            document.getElementById('totalBeans').innerText = totalBeans;
-	
-	            
-	            localStorage.removeItem('logoutTime');
-	        }
-	    }
-	</script>
 </body>
 
 </html>

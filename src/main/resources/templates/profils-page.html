@@ -43,6 +43,10 @@
             border-collapse: collapse;
             margin-top: 20px;
         }
+		
+		.centered-text {
+		  text-align: center;
+		}
 
         td, th {
             padding: 10px;
@@ -164,11 +168,11 @@
 
 <body>
     <div class="nav-bar">
-        <a href="/game">Spele</a>
-        <a href="/upgrades">Uzlabojumi</a>
-        <a href="/profile">Profils</a>
+        <a th:href="@{/game/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Spele</a>
+        <a th:href="@{/upgrades/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Uzlabojumi</a>
+        <a th:href="@{/profils/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Profils</a>
         <a href="/logout" class="right">Iziet</a>
-    </div>
+    </div> 
 
     <div class="container">
         <div class="header">
@@ -176,6 +180,10 @@
         </div>
 
         <table>
+			<tr>
+			    <td>Id:</td>
+				<td th:text="${dalibnieks.idD}"></td>
+			</tr>
 			<tr>
 			    <td>Pievienošanās laiks un datums:</td>
 				<td th:text="${dalibnieks.izveidesDatums}"></td>
@@ -206,11 +214,23 @@
                         <th>Sasnieguma nosaukums</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr th:each="sasniegums, iterStat : ${sasniegumi}">
-                        <td th:text="${iterStat.count}"></td>
-                        <td th:text="${sasniegums.nosaukums}">Sasnieguma nosaukums</td>
-                    </tr>
+                <tbody class="centered-text">
+					<tr>
+                        <td th:text="${dalibnieks.sasniegumi.kokaLimenis}"></td>
+                        <td>Koka Līmenis</td>
+					</tr>
+					<tr>
+                        <td th:text="${dalibnieks.sasniegumi.pupinas.pupinuKopejaisSkaits}"></td>
+                        <td>PupinuKopejaisSkaits</td>
+					</tr>
+					<tr>
+                        <td th:text="${dalibnieks.sasniegumi.pupinas.pupinuSkaitsParKlikski}"></td>
+                        <td>PupinuSkaitsParKlikski</td>
+					</tr>
+					<tr>
+                        <td th:text="${dalibnieks.sasniegumi.pupinas.autonomasPupinas}"></td>
+                        <td>AutonomasPupinas</td>
+					</tr>
                 </tbody>
             </table>
         </div>
@@ -225,11 +245,11 @@
                         <th>Datums un laiks</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr th:each="pirkums, iterStat : ${pirkumi}">
+                <tbody class="centered-text">
+                    <tr th:each="pirkums, iterStat : ${dalibnieks.pirkumi}">
                         <td th:text="${iterStat.count}"></td>
-                        <td th:text="${pirkums.nosaukums}">Uzlabojuma nosaukums</td>
-                        <td th:text="${pirkums.datumsLaiks}">Datums un laiks</td>
+                        <td th:text="${pirkums.uzlabojumi.nosaukums}"></td>
+                        <td th:text="${pirkums.datumsUnLaiks}"></td>
                     </tr>
                 </tbody>
             </table>
@@ -241,13 +261,18 @@
         <div class="terms-modal-content">
             <span class="close" onclick="document.getElementById('editPasswordModal').style.display='none'">&times;</span>
             <h2>Rediģēt paroli</h2>
-            <form action="#" th:action="@{/dalibnieks/updatePassword}" th:object="${dalibnieks}" th:method="post">
+            <form action="#" th:action="@{/profils/{dalibnieks}(dalibnieks=${dalibnieks.idD})}" th:object="${dalibnieks}" th:method="post">
                 <table>
+					<tr>
+						<td colspan="2" class="center" th:text="${errormsg}"></td>
+					</tr>
                     <tr>
                         <td>Jaunā parole:</td>
                         <td>
-                            <input type="password" th:field="*{parole}" />
-                            <div th:if="${#fields.hasErrors('parole')}" th:errors="*{parole}" class="error"></div>
+							<input type="password" th:field="*{parole}" name="password" placeholder="Parole" required><br>
+							<td th:if="${#fields.hasErrors('parole')}" th:errors="*{parole}" class="error"></td>
+							<input type="hidden" th:field="*{lietotajvards}" />
+							<input type="hidden" th:field="*{loma}" />
                         </td>
                     </tr>
                     <tr>

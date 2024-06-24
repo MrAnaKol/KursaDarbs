@@ -119,6 +119,17 @@
 			}
             document.getElementById('rememberPrompt').style.display = 'none';
         }
+		function togglePasswordVisibility() {
+			var passwordField = document.getElementById('password');
+			var toggleButton = document.getElementById('togglePassword');
+			if (passwordField.type === 'password') {
+				passwordField.type = 'text';
+				toggleButton.innerText = 'Slept paroli';
+			} else {
+			    passwordField.type = 'password';
+			    toggleButton.innerText = 'Radit paroli';
+			}
+		}
     </script>
 </head>
 <body>
@@ -130,13 +141,14 @@
 
     <div class="container">
         <h2>Ieiet</h2>
-		<form action="#" th:action="@{/login}" th:object="${dalibnieks}" th:method="post">
+		<form action="#" th:action="@{/login1}" th:object="${dalibnieks}" th:method="post">
             <label for="username">Lietotājvārds:</label><br>
             <input type="text" th:field="*{lietotajvards}" id="username" name="username" placeholder="Lietotājvārds" required><br>
 			<td th:if="${#fields.hasErrors('lietotajvards')}" th:errors="*{lietotajvards}" ></td>
             <label for="password">Parole:</label><br>
             <input type="password" th:field="*{parole}" id="password" name="password" placeholder="Parole" required><br>
 			<td th:if="${#fields.hasErrors('parole')}" th:errors="*{parole}" ></td>
+			<button type="button" id="togglePassword" onclick="togglePasswordVisibility()">Radit paroli</button>
             <div class="remember-me">
 				<label for="remember">Atcerēties mani</label>
                 <input type="checkbox" onclick="showPrompt()" id="remember" name="remember">

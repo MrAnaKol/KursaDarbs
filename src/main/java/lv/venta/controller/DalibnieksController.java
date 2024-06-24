@@ -1,6 +1,8 @@
 package lv.venta.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,9 +30,9 @@ public class DalibnieksController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid Dalibnieks dalibnieks, BindingResult result, Model model) {
+    public String registerUser(@Valid @ModelAttribute Dalibnieks dalibnieks, BindingResult result, Model model) {
         if (result.hasErrors()) {
-        	model.addAttribute("dalibnieks",dalibnieks);
+        	model.addAttribute("dalibnieks", dalibnieks);
             return "registreties-page";
         }
         try {
@@ -38,7 +40,7 @@ public class DalibnieksController {
             return "redirect:/login";
         } catch (Exception e) {
             model.addAttribute("errormsg", e.getMessage());
-            return "error-page";
+            return "registreties-page";
         }
     }
 
@@ -49,18 +51,20 @@ public class DalibnieksController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@Valid Dalibnieks dalibnieks, BindingResult result, Model model) {
+    public String loginUser(@Valid @ModelAttribute Dalibnieks dalibnieks, BindingResult result, Model model) {
     	if (result.hasErrors()) {
-        	model.addAttribute("dalibnieks",dalibnieks);
+        	model.addAttribute("dalibnieks", dalibnieks);
         	//System.out.println(result);
             return "ieiet-page";
         }
         try {
-            Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecLietotajvardaUnParoles(dalibnieks.getLietotajvards(), dalibnieks.getParole());
+        	PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        	String encodedParole = encoder.encode(dalibnieks.getParole());
+            Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecLietotajvardaUnParoles(dalibnieks.getLietotajvards(), encodedParole);
             if (iegutaisDalibnieks != null) {
                 return "redirect:/profils/" + iegutaisDalibnieks.getIdD();
             } else {
-            	model.addAttribute("dalibnieks",dalibnieks);
+            	model.addAttribute("dalibnieks", dalibnieks);
                 return "ieiet-page";
             }
         } catch (Exception e) {
@@ -68,18 +72,46 @@ public class DalibnieksController {
             return "error-page";
         }
     }
+    
+    @GetMapping("/logout") // localhost:8080/logout
+    public String logout() {
+    	return "redirect:/login";
+    }
+    
     @GetMapping("/profils/{id}") // localhost:8080/profils/1
     public String profilPage(@PathVariable("id") int id, Model model) {
-    	Dalibnieks iegutaisDalibnieks;
 		try {
-			iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
-			model.addAttribute("dalibnieks",iegutaisDalibnieks);
-			model.addAttribute("saniegumi",iegutaisDalibnieks.getSasniegumi());
+			Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+			model.addAttribute("dalibnieks", iegutaisDalibnieks);
 	        return "profils-page"; 
 		} catch (Exception e) {
 			model.addAttribute("errormsg", e.getMessage());
             return "error-page";
 		}
-    	
+    }
+    
+    @PostMapping("/profils/{id}")
+    public String changePassword(@Valid @ModelAttribute Dalibnieks dalibnieks, BindingResult result, @PathVariable("id") int id, Model model) {
+    	System.out.println(result);
+    	if (result.hasErrors()) {
+			try {
+				Dalibnieks iegutaisDalibnieks;iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+				model.addAttribute("dalibnieks", iegutaisDalibnieks);
+				model.addAttribute("errormsg", "Parolei ir jābūt vismaz 8 simbolus garai un jāsatur vismaz vienu burtu, vienu ciparu un vienu speciālo rakstzīmi!");
+	            return "profils-page";
+			} catch (Exception e) {
+				model.addAttribute("errormsg", e.getMessage());
+	            return "error-page";
+			}
+        }
+        try {
+        	dalibnieksService.atjaunotDalibniekuPecId(id, dalibnieks.getLoma(), dalibnieks.getLietotajvards(), dalibnieks.getParole());
+        	Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+			model.addAttribute("dalibnieks", iegutaisDalibnieks);
+        	return "profils-page";
+        } catch (Exception e) {
+            model.addAttribute("errormsg", e.getMessage());
+            return "error-page";
+        }
     }
 }

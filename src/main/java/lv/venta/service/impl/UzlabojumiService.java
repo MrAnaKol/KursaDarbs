@@ -1,8 +1,12 @@
 package lv.venta.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lv.venta.model.Koks;
 import lv.venta.model.UzlabojumaTips;
 import lv.venta.model.Uzlabojumi;
 import lv.venta.repo.IUzlabojumiRepo;
@@ -47,7 +51,7 @@ public class UzlabojumiService implements IUzlabojumiService{
 		case udens:
 			sasniegumiService.izmainitPupinuSkaitu(idD, -cena);
 			pirkumuService.izveidotPirkumaIerakstu(idD, idU);
-			kokaService.izmainitKokaAugstumu(idD, 5);
+			kokaService.izmainitKokaAugstumu(idD, 10);
 			kokaService.pieliktUzlabojumu(idD, idU);
 			break;
 		case autonoms:
@@ -76,6 +80,36 @@ public class UzlabojumiService implements IUzlabojumiService{
 		if(cena < 0) throw new Exception("Cena nevar būt negatīva");
 		Uzlabojumi jaunsUzlabojums = new Uzlabojumi(nosaukums, cena, uzlabojumaTips);
 		uzlabojumiRepo.save(jaunsUzlabojums);
+	}
+
+	@Override
+	public ArrayList<Uzlabojumi> izveletiesVisusNeizmantotusUzlabojumus(int id) throws Exception {
+		ArrayList<Uzlabojumi> result = new ArrayList<>();
+		ArrayList<Uzlabojumi> galaResult = new ArrayList<>();
+		Iterable<Uzlabojumi> uzlabojumi = uzlabojumiRepo.findAll();
+		Koks koks = kokaService.izveletiesKokuPecId(id);
+		Collection<Uzlabojumi> kokaUzlabojumi = koks.getUzlabojumi();
+		for(Uzlabojumi uzlabojums : uzlabojumi) {
+			for(Uzlabojumi kokaUzlabojums : kokaUzlabojumi) {
+				if(kokaUzlabojums.equals(uzlabojums)) {
+					result.add(uzlabojums);
+				}
+			}
+
+		}
+		for(Uzlabojumi uzlabojums : uzlabojumi) {
+			galaResult.add(uzlabojums);
+		}
+		for(Uzlabojumi uzlabojums : result) {
+			galaResult.remove(uzlabojums);
+		}
+		return galaResult;
+	}
+
+	@Override
+	public Uzlabojumi izveletiesUzlabojumuPecNosaukumaUnCenas(String nosaukums, int cena) throws Exception {
+		Uzlabojumi uzlabojums = uzlabojumiRepo.findByNosaukumsAndCena(nosaukums, cena);
+		return uzlabojums;
 	}
 	
 }

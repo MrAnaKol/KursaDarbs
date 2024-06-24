@@ -46,7 +46,7 @@ public class Koks {
     private int augstums;
 
     @Min(0)
-    @Max(4)
+    @Max(6)
     @Column(name = "KokaLimenis")
     private int kokaLimenis;
 
