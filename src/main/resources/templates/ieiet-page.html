@@ -141,7 +141,7 @@
 
     <div class="container">
         <h2>Ieiet</h2>
-		<form action="#" th:action="@{/login1}" th:object="${dalibnieks}" th:method="post">
+		<form action="#" th:action="@{/login}" th:object="${dalibnieks}" th:method="post">
             <label for="username">Lietotājvārds:</label><br>
             <input type="text" th:field="*{lietotajvards}" id="username" name="username" placeholder="Lietotājvārds" required><br>
 			<td th:if="${#fields.hasErrors('lietotajvards')}" th:errors="*{lietotajvards}" ></td>

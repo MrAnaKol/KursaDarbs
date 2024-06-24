@@ -52,7 +52,7 @@ public class KursaDarbsApplication {
 					uzlabojumiService.jaunsUzlabojums("Autonoms", (10 + 50 * i), UzlabojumaTips.autonoms);
 				}
 				
-				sasniegumiService.izmainitPupinuSkaitu(1, 100);
+				sasniegumiService.izmainitPupinuSkaitu(1, 100000);
 				sasniegumiService.tiekUzspiestsUzKoka(1);//101
 				uzlabojumiService.nopirktUzlabojumu(1, 1);//91
 				uzlabojumiService.nopirktUzlabojumu(2, 1);//71

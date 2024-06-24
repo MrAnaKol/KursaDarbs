@@ -36,7 +36,9 @@ public class DalibnieksController {
             return "registreties-page";
         }
         try {
-            dalibnieksService.jaunsDalibnieks(dalibnieks.getLoma(), dalibnieks.getLietotajvards(), dalibnieks.getParole());
+        	PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        	String encodedParole = encoder.encode(dalibnieks.getParole());
+            dalibnieksService.jaunsDalibnieks(dalibnieks.getLoma(), dalibnieks.getLietotajvards(), encodedParole);
             return "redirect:/login";
         } catch (Exception e) {
             model.addAttribute("errormsg", e.getMessage());
@@ -48,29 +50,6 @@ public class DalibnieksController {
     public String showLoginForm(Model model) {
     	model.addAttribute("dalibnieks", new Dalibnieks());
         return "ieiet-page";
-    }
-
-    @PostMapping("/login")
-    public String loginUser(@Valid @ModelAttribute Dalibnieks dalibnieks, BindingResult result, Model model) {
-    	if (result.hasErrors()) {
-        	model.addAttribute("dalibnieks", dalibnieks);
-        	//System.out.println(result);
-            return "ieiet-page";
-        }
-        try {
-        	PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        	String encodedParole = encoder.encode(dalibnieks.getParole());
-            Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecLietotajvardaUnParoles(dalibnieks.getLietotajvards(), encodedParole);
-            if (iegutaisDalibnieks != null) {
-                return "redirect:/profils/" + iegutaisDalibnieks.getIdD();
-            } else {
-            	model.addAttribute("dalibnieks", dalibnieks);
-                return "ieiet-page";
-            }
-        } catch (Exception e) {
-            model.addAttribute("errormsg", e.getMessage());
-            return "error-page";
-        }
     }
     
     @GetMapping("/logout") // localhost:8080/logout
@@ -105,7 +84,9 @@ public class DalibnieksController {
 			}
         }
         try {
-        	dalibnieksService.atjaunotDalibniekuPecId(id, dalibnieks.getLoma(), dalibnieks.getLietotajvards(), dalibnieks.getParole());
+        	PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        	String encodedParole = encoder.encode(dalibnieks.getParole());
+        	dalibnieksService.atjaunotDalibniekuPecId(id, dalibnieks.getLoma(), dalibnieks.getLietotajvards(), encodedParole);
         	Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
 			model.addAttribute("dalibnieks", iegutaisDalibnieks);
         	return "profils-page";

@@ -34,7 +34,7 @@
 
         th, td {
             padding: 10px;
-            text-align: left;
+            text-align: center;
             border: 1px solid #ddd;
         }
 
@@ -110,6 +110,24 @@
             
         </div>
         <h2>Uzlabojumu Tabula</h2>
+		<table>
+            <tr>
+                <th>Pupiņu kopējais skaits</th>
+                <th>Pupiņu skaits par klikšķi</th>
+                <th>Autonomās pupiņas</th>
+				<th>Koka augstums</th>
+				<th>Koka līmenis</th>
+            </tr>
+            <tr>
+                <td th:text="${dalibnieks.sasniegumi.pupinas.pupinuKopejaisSkaits}" id="totalBeans"></td>
+                <td th:text="${dalibnieks.sasniegumi.pupinas.pupinuSkaitsParKlikski}" id="beansPerClick"></td>
+                <td th:text="${dalibnieks.sasniegumi.pupinas.autonomasPupinas}" id="autoBeans"></td>
+				<td th:text="${dalibnieks.koks.augstums}" id="treeHeight"></td>
+				<td th:text="${dalibnieks.koks.kokaLimenis}" id="treeLevel"></td>
+			</tr>
+        </table>
+		<h3 th:text="${errormsg}"></h3>
+		
         <table id="uzlabojumiTable">
             <thead>
                 <tr>
@@ -128,9 +146,9 @@
 					<td th:text="${tempU.uzlabojumaTips}"></td>
 					<td th:text="${tempU.cena}"></td>
 					<td><form action="#" th:action="@{/upgrades/{dalibnieks}(dalibnieks=${dalibnieks.idD})}" th:object="${uzlabojums}" th:method="post">
-						<input type="hidden" th:field="*{nosaukums}" th:value="${tempU.nosaukums}" />
-                        <input type="hidden" th:field="*{uzlabojumaTips}" th:value="${tempU.uzlabojumaTips}" />
-                        <input type="hidden" th:field="*{cena}" th:value="${tempU.cena}" />
+						<input type="hidden" th:value="${tempU.nosaukums}" id="nosaukums" name="nosaukums" />
+                        <input type="hidden" th:value="${tempU.uzlabojumaTips}" id="uzlabojumaTips" name="uzlabojumaTips" />
+                        <input type="hidden" th:value="${tempU.cena}" id="cena" name="cena" />
                         <input type="submit" value="Pirkt">
 					</form></td>
 				</tr>

@@ -48,32 +48,29 @@ public class UzlabojumiController {
 	        Model model) {
     	if (uzlabojumsResult.hasErrors()) {
     		try {
-    			System.out.println(uzlabojums);
-    			Uzlabojumi nopirktaisUzlabojums = uzlabojumiService.izveletiesUzlabojumuPecNosaukumaUnCenas(uzlabojums.getNosaukums(), uzlabojums.getCena());
-            	uzlabojumiService.nopirktUzlabojumu(nopirktaisUzlabojums.getIdU(), id);
             	return "redirect:/upgrades/" + id;
-    			/*System.out.println(dalibnieksResult);
-    			System.out.println(uzlabojumiResult);
-    			System.out.println(uzlabojumsResult);
-    			Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
-    			ArrayList<Uzlabojumi> iegutieUzlabojumi = uzlabojumiService.izveletiesVisusNeizmantotusUzlabojumus(id);
-    			model.addAttribute("dalibnieks", iegutaisDalibnieks);
-    			model.addAttribute("uzlabojumi", iegutieUzlabojumi);
-    			model.addAttribute("uzlabojums", new Uzlabojumi());
-    	        return "uzlabojumi-page"; */
     		} catch (Exception e) {
     			model.addAttribute("errormsg", e.getMessage());
                 return "error-page";
     		}
         }
         try {
-        	System.out.println(uzlabojums);
         	Uzlabojumi nopirktaisUzlabojums = uzlabojumiService.izveletiesUzlabojumuPecNosaukumaUnCenas(uzlabojums.getNosaukums(), uzlabojums.getCena());
         	uzlabojumiService.nopirktUzlabojumu(nopirktaisUzlabojums.getIdU(), id);
         	return "redirect:/upgrades/" + id;
         } catch (Exception e) {
-            model.addAttribute("errormsg", e.getMessage());
-            return "error-page";
+        	try {
+				Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+				ArrayList<Uzlabojumi> iegutieUzlabojumi = uzlabojumiService.izveletiesVisusNeizmantotusUzlabojumus(id);
+				model.addAttribute("dalibnieks", iegutaisDalibnieks);
+				model.addAttribute("uzlabojumi", iegutieUzlabojumi);
+				model.addAttribute("uzlabojums", new Uzlabojumi());
+				model.addAttribute("errormsg", e.getMessage());
+		        return "uzlabojumi-page"; 
+			} catch (Exception er) {
+				model.addAttribute("errormsg", er.getMessage());
+	            return "error-page";
+			}
         }
     }
     
