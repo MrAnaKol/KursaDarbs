@@ -99,16 +99,15 @@
 
 <body>
     <div class="nav-bar">
-        <a href="/game">Spele</a>
-        <a href="/upgrades">Uzlabojumi</a>
-        <a href="/profile">Profils</a>
-		<a href="/logout" class="right">Iziet</a>
+		<a th:href="@{/game/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Spele</a>
+        <a th:href="@{/upgrades/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Uzlabojumi</a>
+        <a th:href="@{/profils/{dalibnieks}(dalibnieks=${dalibnieks.idD})}">Profils</a>
+        <a href="/logout" class="right">Iziet</a>
     </div>
 
     <div class="container">
-        <div class="header">
-            <p>Laika zona: <span id="timezone"></span></p>
-			
+        <div class="header"> 
+            
         </div>
         <h2>Uzlabojumu Tabula</h2>
         <table id="uzlabojumiTable">
@@ -123,13 +122,18 @@
             </thead>
             <tbody>
                 
-                <tr>
-                    <td>1</td>
-                    <td>Uzlabojums A</td>
-                    <td>ūdens</td>
-                    <td>100</td>
-                    <td><button class="btn" onclick="confirmPurchase(1)">Pirkt</button></td>
-                </tr>
+				<tr th:each="tempU, iterStat : ${uzlabojumi}">
+					<td th:text="${iterStat.count}"></td>
+					<td th:text="${tempU.nosaukums}"></td>
+					<td th:text="${tempU.uzlabojumaTips}"></td>
+					<td th:text="${tempU.cena}"></td>
+					<td><form action="#" th:action="@{/upgrades/{dalibnieks}(dalibnieks=${dalibnieks.idD})}" th:object="${uzlabojums}" th:method="post">
+						<input type="hidden" th:field="*{nosaukums}" th:value="${tempU.nosaukums}" />
+                        <input type="hidden" th:field="*{uzlabojumaTips}" th:value="${tempU.uzlabojumaTips}" />
+                        <input type="hidden" th:field="*{cena}" th:value="${tempU.cena}" />
+                        <input type="submit" value="Pirkt">
+					</form></td>
+				</tr>
                 
             </tbody>
         </table>
@@ -153,13 +157,13 @@
             const tbody = document.getElementById('uzlabojumiTable').querySelector('tbody');
             uzlabojumi.forEach((uzlabojums, index) => {
                 const row = document.createElement('tr');
-				row.innerHTML = `
-				    <td>${index + 1}</td>
-				    <td>${uzlabojums.nosaukums}</td>
-				    <td>${uzlabojums.tips}</td>
-				    <td>${uzlabojums.cena}</td>
-					<td><button class="btn" onclick="confirmPurchase(${uzlabojums.id})">Pirkt</button></td>
-				`;
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${uzlabojums.nosaukums}</td>
+                    <td>${uzlabojums.tips}</td>
+                    <td>${uzlabojums.cena}</td>
+                    <td><button class="btn" onclick="confirmPurchase(${uzlabojums.id})">Pirkt</button></td>
+                `;
                 tbody.appendChild(row);
             });
         }

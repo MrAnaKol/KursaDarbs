@@ -119,6 +119,17 @@
 			}
             document.getElementById('rememberPrompt').style.display = 'none';
         }
+		function togglePasswordVisibility() {
+			var passwordField = document.getElementById('password');
+			var toggleButton = document.getElementById('togglePassword');
+			if (passwordField.type === 'password') {
+				passwordField.type = 'text';
+				toggleButton.innerText = 'Slept paroli';
+			} else {
+			    passwordField.type = 'password';
+			    toggleButton.innerText = 'Radit paroli';
+			}
+		}
     </script>
 </head>
 <body>
@@ -137,6 +148,7 @@
             <label for="password">Parole:</label><br>
             <input type="password" th:field="*{parole}" id="password" name="password" placeholder="Parole" required><br>
 			<td th:if="${#fields.hasErrors('parole')}" th:errors="*{parole}" ></td>
+			<button type="button" id="togglePassword" onclick="togglePasswordVisibility()">Radit paroli</button>
             <div class="remember-me">
 				<label for="remember">Atcerēties mani</label>
                 <input type="checkbox" onclick="showPrompt()" id="remember" name="remember">

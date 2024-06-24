@@ -28,9 +28,9 @@ public class DalibnieksController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid Dalibnieks dalibnieks, BindingResult result, Model model) {
+    public String registerUser(@Valid @ModelAttribute Dalibnieks dalibnieks, BindingResult result, Model model) {
         if (result.hasErrors()) {
-        	model.addAttribute("dalibnieks",dalibnieks);
+        	model.addAttribute("dalibnieks", dalibnieks);
             return "registreties-page";
         }
         try {
@@ -38,7 +38,7 @@ public class DalibnieksController {
             return "redirect:/login";
         } catch (Exception e) {
             model.addAttribute("errormsg", e.getMessage());
-            return "error-page";
+            return "registreties-page";
         }
     }
 
@@ -49,9 +49,9 @@ public class DalibnieksController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@Valid Dalibnieks dalibnieks, BindingResult result, Model model) {
+    public String loginUser(@Valid @ModelAttribute Dalibnieks dalibnieks, BindingResult result, Model model) {
     	if (result.hasErrors()) {
-        	model.addAttribute("dalibnieks",dalibnieks);
+        	model.addAttribute("dalibnieks", dalibnieks);
         	//System.out.println(result);
             return "ieiet-page";
         }
@@ -60,7 +60,7 @@ public class DalibnieksController {
             if (iegutaisDalibnieks != null) {
                 return "redirect:/profils/" + iegutaisDalibnieks.getIdD();
             } else {
-            	model.addAttribute("dalibnieks",dalibnieks);
+            	model.addAttribute("dalibnieks", dalibnieks);
                 return "ieiet-page";
             }
         } catch (Exception e) {
@@ -78,25 +78,32 @@ public class DalibnieksController {
     public String profilPage(@PathVariable("id") int id, Model model) {
 		try {
 			Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
-			model.addAttribute("dalibnieks",iegutaisDalibnieks);
+			model.addAttribute("dalibnieks", iegutaisDalibnieks);
 	        return "profils-page"; 
 		} catch (Exception e) {
 			model.addAttribute("errormsg", e.getMessage());
             return "error-page";
 		}
-    	
     }
     
     @PostMapping("/profils/{id}")
-    public String changePassword(@Valid Dalibnieks dalibnieks, @PathVariable("id") int id, BindingResult result, Model model) {
+    public String changePassword(@Valid @ModelAttribute Dalibnieks dalibnieks, BindingResult result, @PathVariable("id") int id, Model model) {
+    	System.out.println(result);
     	if (result.hasErrors()) {
-        	model.addAttribute("dalibnieks",dalibnieks);
-            return "profils-page";
+			try {
+				Dalibnieks iegutaisDalibnieks;iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+				model.addAttribute("dalibnieks", iegutaisDalibnieks);
+				model.addAttribute("errormsg", "Parolei ir jābūt vismaz 8 simbolus garai un jāsatur vismaz vienu burtu, vienu ciparu un vienu speciālo rakstzīmi!");
+	            return "profils-page";
+			} catch (Exception e) {
+				model.addAttribute("errormsg", e.getMessage());
+	            return "error-page";
+			}
         }
         try {
-        	dalibnieksService.atjaunotDalibniekuPecId(dalibnieks.getIdD(), dalibnieks.getLoma(), dalibnieks.getLietotajvards(), dalibnieks.getParole());
+        	dalibnieksService.atjaunotDalibniekuPecId(id, dalibnieks.getLoma(), dalibnieks.getLietotajvards(), dalibnieks.getParole());
         	Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
-			model.addAttribute("dalibnieks",iegutaisDalibnieks);
+			model.addAttribute("dalibnieks", iegutaisDalibnieks);
         	return "profils-page";
         } catch (Exception e) {
             model.addAttribute("errormsg", e.getMessage());
