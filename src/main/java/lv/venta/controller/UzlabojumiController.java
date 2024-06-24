@@ -76,8 +76,6 @@ public class UzlabojumiController {
             return "error-page";
         }
     }
-<<<<<<< HEAD
-=======
     
     @GetMapping("/upgrades/update/{id}") // localhost:8080/upgrades/update/1
     public String upgradeUpdatePage(@PathVariable("id") int id, Model model) {
@@ -94,5 +92,4 @@ public class UzlabojumiController {
 		}
     	
     }
->>>>>>> Anatolijs
 }
