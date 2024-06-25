@@ -159,46 +159,6 @@
             </tbody>
         </table>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            document.getElementById('timezone').textContent = Intl.LocDateTimeFormat().resolvedOptions().timeZone;
-
-            loadUzlabojumi();
-        });
-
-        function loadUzlabojumi() {
-           
-            const uzlabojumi = [
-                { id: 1, nosaukums: 'Uzlabojums A', tips: 'ūdens', cena: 100 },
-                { id: 2, nosaukums: 'Uzlabojums B', tips: 'ātrums', cena: 200 }
-            ];
-
-            const tbody = document.getElementById('uzlabojumiTable').querySelector('tbody');
-            uzlabojumi.forEach((uzlabojums, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${uzlabojums.nosaukums}</td>
-                    <td>${uzlabojums.tips}</td>
-                    <td>${uzlabojums.cena}</td>
-                    <td><button class="btn" onclick="confirmPurchase(${uzlabojums.id})">Pirkt</button></td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function confirmPurchase(id) {
-            if (confirm('Vai tiešām vēlaties pirkt?')) {
-                
-                alert('Uzlabojums veiksmīgi nopirkts!');
-                
-                loadUzlabojumi();
-            }
-        }
-
-    </script>
 </body>
 
 </html>
