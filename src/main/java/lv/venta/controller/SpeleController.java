@@ -39,10 +39,6 @@ public class SpeleController {
     
 	@PostMapping("/game/{id}")
 	public String postGamePage(@Valid @ModelAttribute Dalibnieks dalibnieks, @PathVariable("id") int id, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-	    	model.addAttribute("dalibnieks",dalibnieks);
-	        return "profils-page";
-	    }
 	    try {
 	    	sasniegumiService.tiekUzspiestsUzKoka(id);
 	    	return "redirect:/game/" + id;

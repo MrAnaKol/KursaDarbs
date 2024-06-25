@@ -62,25 +62,15 @@
             background-color: #45a049;
         }
 
-        .remember-me {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .remember-me label {
-            margin-left: 10px;
-        }
-
         .prompt {
             display: none;
             text-align: center;
             margin-top: 10px;
         }
 
-        .prompt button {
+        button {
             margin: 5px;
-            padding: 10px 20px;
+            padding: 5px 10px;
             border: none;
             cursor: pointer;
             background-color: #4CAF50;
@@ -88,7 +78,7 @@
             border-radius: 4px;
         }
 
-        .prompt button:hover {
+        button:hover {
             background-color: #45a049;
         }
 
@@ -107,33 +97,6 @@
         }
     </style>
     <script>
-        function showPrompt() {
-            document.getElementById('rememberPrompt').style.display = 'block';
-        }
-
-        function rememberMe(response) {
-			if (response === 'yes') {
-			        document.getElementById('remember').checked = true;
-			        
-			        // Store the username and password in cookies
-			        var username = document.getElementById('username').value;
-			        var password = document.getElementById('password').value;
-			        
-			        // Set cookies with expiration time (e.g., 30 days)
-			        var now = new Date();
-			        var expirationDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days from now
-			        
-			        document.cookie = `rememberedUsername=${username}; expires=${expirationDate.toUTCString()}; path=/`;
-			        document.cookie = `rememberedPassword=${password}; expires=${expirationDate.toUTCString()}; path=/`;
-			    } else {
-			        document.getElementById('remember').checked = false;
-			        
-			        // Remove any existing cookies
-			        document.cookie = 'rememberedUsername=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-			        document.cookie = 'rememberedPassword=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-			    }
-			    document.getElementById('rememberPrompt').style.display = 'none';
-        }
 		function togglePasswordVisibility() {
 			var passwordField = document.getElementById('password');
 			var toggleButton = document.getElementById('togglePassword');
@@ -164,15 +127,6 @@
             <input type="password" th:field="*{parole}" id="password" name="password" placeholder="Parole" required><br>
 			<td th:if="${#fields.hasErrors('parole')}" th:errors="*{parole}" ></td>
 			<button type="button" id="togglePassword" onclick="togglePasswordVisibility()">Radit paroli</button>
-            <div class="remember-me">
-				<label for="remember">Atcerēties mani</label>
-                <input type="checkbox" onclick="showPrompt()" id="remember" name="remember">
-            </div>
-            <div class="prompt" id="rememberPrompt">
-                <p>Vai patiešām vēlies, lai tevi atceras?</p>
-                <button type="button" onclick="rememberMe('yes')">Jā</button>
-                <button type="button" onclick="rememberMe('no')">Nē</button>
-            </div>
             <input type="submit" value="Ieiet">
         </form>
         <div class="footer">

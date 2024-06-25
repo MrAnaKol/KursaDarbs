@@ -81,9 +81,9 @@ public class DalibnieksController {
     	System.out.println(result);
     	if (result.hasErrors()) {
 			try {
-				Dalibnieks iegutaisDalibnieks;iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+				Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
 				model.addAttribute("dalibnieks", iegutaisDalibnieks);
-				model.addAttribute("errormsg", "Parolei ir jābūt vismaz 8 simbolus garai un jāsatur vismaz vienu burtu, vienu ciparu un vienu speciālo rakstzīmi!");
+				model.addAttribute("errormsg", result);
 	            return "profils-page";
 			} catch (Exception e) {
 				model.addAttribute("errormsg", e.getMessage());
@@ -91,12 +91,20 @@ public class DalibnieksController {
 			}
         }
         try {
-        	PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        	String encodedParole = encoder.encode(dalibnieks.getParole());
-        	dalibnieksService.atjaunotDalibniekuPecId(id, dalibnieks.getLoma(), dalibnieks.getLietotajvards(), encodedParole);
-        	Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
-			model.addAttribute("dalibnieks", iegutaisDalibnieks);
-        	return "profils-page";
+        	if(dalibnieks.getParole().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")){
+        		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+            	String encodedParole = encoder.encode(dalibnieks.getParole());
+            	dalibnieksService.atjaunotDalibniekuPecId(id, dalibnieks.getLoma(), dalibnieks.getLietotajvards(), encodedParole);
+            	Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+            	model.addAttribute("dalibnieks", iegutaisDalibnieks);
+            	return "profils-page";
+        	}
+        	else {
+        		Dalibnieks iegutaisDalibnieks = dalibnieksService.izveletiesDalibniekuPecId(id);
+            	model.addAttribute("dalibnieks", iegutaisDalibnieks);
+				model.addAttribute("errormsg", "Parolei ir jābūt vismaz 8 simbolus garai un jāsatur vismaz vienu lielo burtu, vienu mazo burtu, vienu ciparu un vienu speciālo rakstzīmi!");
+	            return "profils-page";
+        	}
         } catch (Exception e) {
             model.addAttribute("errormsg", e.getMessage());
             return "error-page";
